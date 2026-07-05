@@ -1,6 +1,6 @@
 'use client'
 
-import type { Piece, PieceShape, Position } from '@/lib/block-blast-engine'
+import type { Piece, PieceShape } from '@/lib/block-blast-engine'
 
 interface PiecePreviewProps {
   piece: PieceShape

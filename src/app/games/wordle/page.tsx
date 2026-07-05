@@ -81,6 +81,13 @@ function ShareButton({ attempts, status, target }: {
     return canvas.toDataURL('image/png')
   }, [attempts, status, target])
 
+  function downloadImage(dataUrl: string) {
+    const a = document.createElement('a')
+    a.href = dataUrl
+    a.download = 'tlj-wordle.png'
+    a.click()
+  }
+
   const handleShare = useCallback(() => {
     const dataUrl = generateShareImage()
     if (!dataUrl) return
@@ -100,13 +107,6 @@ function ShareButton({ attempts, status, target }: {
     }
     setShared(true)
   }, [generateShareImage])
-
-  function downloadImage(dataUrl: string) {
-    const a = document.createElement('a')
-    a.href = dataUrl
-    a.download = 'tlj-wordle.png'
-    a.click()
-  }
 
   if (status === 'playing') return null
 
@@ -132,20 +132,20 @@ function ShareButton({ attempts, status, target }: {
 export default function WordlePage() {
   const game = useWordleGame()
   const { addScore } = useGamesScore()
-  const [scoreReported, setScoreReported] = useState(false)
+  const scoreReportedRef = useRef(false)
 
   // report score once on game end
   useEffect(() => {
-    if (game.status !== 'playing' && !scoreReported) {
+    if (game.status !== 'playing' && !scoreReportedRef.current) {
       const wordleScore = game.status === 'won'
         ? (MAX_ATTEMPTS - game.currentRow + 1) * 100
         : 0
       if (wordleScore > 0) {
         addScore('wordle', wordleScore)
       }
-      setScoreReported(true)
+      scoreReportedRef.current = true
     }
-  }, [game.status, scoreReported, addScore, game.currentRow])
+  }, [game.status, addScore, game.currentRow])
 
   return (
     <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">

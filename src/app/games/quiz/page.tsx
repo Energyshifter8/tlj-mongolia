@@ -1,7 +1,7 @@
 'use client'
 
 import { useReducer, useCallback } from 'react'
-import { QUIZ_QUESTIONS, type QuizQuestion } from '@/lib/mock-data'
+import { QUIZ_QUESTIONS } from '@/lib/mock-data'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
 
 // ─── State ──────────────────────────────────────────────────────

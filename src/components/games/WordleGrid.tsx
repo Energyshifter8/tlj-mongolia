@@ -4,7 +4,6 @@ import type { Tile, LetterStatus } from '@/hooks/useWordleGame'
 
 interface WordleGridProps {
   attempts: Tile[][]
-  currentRow: number
   shakeRow: boolean
   revealedRows: number[]
 }
@@ -17,9 +16,8 @@ const STATUS_STYLES: Record<LetterStatus, string> = {
   empty: 'border-muted bg-transparent text-foreground',
 }
 
-function TileCell({ tile, rowIdx, colIdx, revealed }: {
+function TileCell({ tile, colIdx, revealed }: {
   tile: Tile
-  rowIdx: number
   colIdx: number
   revealed: boolean
 }) {
@@ -37,7 +35,7 @@ function TileCell({ tile, rowIdx, colIdx, revealed }: {
   )
 }
 
-export default function WordleGrid({ attempts, currentRow, shakeRow, revealedRows }: WordleGridProps) {
+export default function WordleGrid({ attempts, shakeRow, revealedRows }: WordleGridProps) {
   return (
     <div className={`grid gap-1.5 ${shakeRow ? 'wordle-shake' : ''}`}>
       {attempts.map((row, rowIdx) => (
@@ -46,7 +44,6 @@ export default function WordleGrid({ attempts, currentRow, shakeRow, revealedRow
             <TileCell
               key={colIdx}
               tile={tile}
-              rowIdx={rowIdx}
               colIdx={colIdx}
               revealed={revealedRows.includes(rowIdx)}
             />

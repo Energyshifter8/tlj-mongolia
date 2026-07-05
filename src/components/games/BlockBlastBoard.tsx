@@ -1,6 +1,6 @@
 'use client'
 
-import type { Board, Position, PieceShape } from '@/lib/block-blast-engine'
+import type { Board, Position } from '@/lib/block-blast-engine'
 import { BOARD_SIZE } from '@/lib/block-blast-engine'
 
 interface BlockBlastBoardProps {

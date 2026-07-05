@@ -89,7 +89,12 @@ function Scene() {
       <Cake />
       <Pedestal />
 
-      <Environment preset="studio" />
+      <Environment near={0.1} far={100} resolution={256}>
+        <mesh scale={50}>
+          <sphereGeometry args={[1, 16, 16]} />
+          <meshBasicMaterial color="#1a1512" side={2} />
+        </mesh>
+      </Environment>
 
       <OrbitControls
         enablePan={false}
