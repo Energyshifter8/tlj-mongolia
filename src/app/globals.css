@@ -18,6 +18,9 @@
   --color-muted-light: var(--muted-light);
   --color-surface: var(--surface);
   --color-surface-light: var(--surface-light);
+  --color-correct: #2d6a4f;
+  --color-present: #c9a24b;
+  --color-absent: #3a2e26;
   --font-display: var(--font-playfair);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-jetbrains);
@@ -62,4 +65,32 @@ h6 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
+}
+
+/* ─── Wordle animations ───────────────────────────────────────── */
+
+.wordle-reveal {
+  animation: wordle-flip 0.5s ease forwards;
+}
+
+@keyframes wordle-flip {
+  0% {
+    transform: rotateX(0);
+  }
+  50% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+.wordle-shake {
+  animation: wordle-shake 0.5s ease;
+}
+
+@keyframes wordle-shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-4px); }
+  30%, 70% { transform: translateX(4px); }
 }
