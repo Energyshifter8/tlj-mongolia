@@ -51,45 +51,201 @@ const EASY_PIECES: PieceShape[] = [
   // single block
   { cells: [{ row: 0, col: 0 }], color: '#c9a24b', label: '1×1' },
   // 2 horizontal
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }], color: '#d4b06a', label: '1×2' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+    ],
+    color: '#d4b06a',
+    label: '1×2',
+  },
   // 2 vertical
-  { cells: [{ row: 0, col: 0 }, { row: 1, col: 0 }], color: '#b8913a', label: '2×1' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 1, col: 0 },
+    ],
+    color: '#b8913a',
+    label: '2×1',
+  },
   // 3 horizontal
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }], color: '#c9a24b', label: '1×3' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 0, col: 2 },
+    ],
+    color: '#c9a24b',
+    label: '1×3',
+  },
   // 3 vertical
-  { cells: [{ row: 0, col: 0 }, { row: 1, col: 0 }, { row: 2, col: 0 }], color: '#d4b06a', label: '3×1' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 1, col: 0 },
+      { row: 2, col: 0 },
+    ],
+    color: '#d4b06a',
+    label: '3×1',
+  },
   // 2x2 square
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 1, col: 0 }, { row: 1, col: 1 }], color: '#b8913a', label: '2×2' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 1, col: 0 },
+      { row: 1, col: 1 },
+    ],
+    color: '#b8913a',
+    label: '2×2',
+  },
 ]
 
 const MEDIUM_PIECES: PieceShape[] = [
   // L-shape
-  { cells: [{ row: 0, col: 0 }, { row: 1, col: 0 }, { row: 2, col: 0 }, { row: 2, col: 1 }], color: '#2d6a4f', label: 'L' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 1, col: 0 },
+      { row: 2, col: 0 },
+      { row: 2, col: 1 },
+    ],
+    color: '#2d6a4f',
+    label: 'L',
+  },
   // J-shape
-  { cells: [{ row: 0, col: 1 }, { row: 1, col: 1 }, { row: 2, col: 0 }, { row: 2, col: 1 }], color: '#40916c', label: 'J' },
+  {
+    cells: [
+      { row: 0, col: 1 },
+      { row: 1, col: 1 },
+      { row: 2, col: 0 },
+      { row: 2, col: 1 },
+    ],
+    color: '#40916c',
+    label: 'J',
+  },
   // T-shape
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }, { row: 1, col: 1 }], color: '#52b788', label: 'T' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 0, col: 2 },
+      { row: 1, col: 1 },
+    ],
+    color: '#52b788',
+    label: 'T',
+  },
   // S-shape
-  { cells: [{ row: 0, col: 1 }, { row: 0, col: 2 }, { row: 1, col: 0 }, { row: 1, col: 1 }], color: '#2d6a4f', label: 'S' },
+  {
+    cells: [
+      { row: 0, col: 1 },
+      { row: 0, col: 2 },
+      { row: 1, col: 0 },
+      { row: 1, col: 1 },
+    ],
+    color: '#2d6a4f',
+    label: 'S',
+  },
   // Z-shape
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 1, col: 1 }, { row: 1, col: 2 }], color: '#40916c', label: 'Z' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 1, col: 1 },
+      { row: 1, col: 2 },
+    ],
+    color: '#40916c',
+    label: 'Z',
+  },
   // 4 horizontal
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }, { row: 0, col: 3 }], color: '#52b788', label: '1×4' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 0, col: 2 },
+      { row: 0, col: 3 },
+    ],
+    color: '#52b788',
+    label: '1×4',
+  },
   // 4 vertical
-  { cells: [{ row: 0, col: 0 }, { row: 1, col: 0 }, { row: 2, col: 0 }, { row: 3, col: 0 }], color: '#2d6a4f', label: '4×1' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 1, col: 0 },
+      { row: 2, col: 0 },
+      { row: 3, col: 0 },
+    ],
+    color: '#2d6a4f',
+    label: '4×1',
+  },
 ]
 
 const HARD_PIECES: PieceShape[] = [
   // 3x3 square
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }, { row: 1, col: 0 }, { row: 1, col: 1 }, { row: 1, col: 2 }, { row: 2, col: 0 }, { row: 2, col: 1 }, { row: 2, col: 2 }], color: '#9b2226', label: '3×3' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 0, col: 2 },
+      { row: 1, col: 0 },
+      { row: 1, col: 1 },
+      { row: 1, col: 2 },
+      { row: 2, col: 0 },
+      { row: 2, col: 1 },
+      { row: 2, col: 2 },
+    ],
+    color: '#9b2226',
+    label: '3×3',
+  },
   // cross / plus
-  { cells: [{ row: 0, col: 1 }, { row: 1, col: 0 }, { row: 1, col: 1 }, { row: 1, col: 2 }, { row: 2, col: 1 }], color: '#ae2012', label: '+' },
+  {
+    cells: [
+      { row: 0, col: 1 },
+      { row: 1, col: 0 },
+      { row: 1, col: 1 },
+      { row: 1, col: 2 },
+      { row: 2, col: 1 },
+    ],
+    color: '#ae2012',
+    label: '+',
+  },
   // long L
-  { cells: [{ row: 0, col: 0 }, { row: 1, col: 0 }, { row: 2, col: 0 }, { row: 3, col: 0 }, { row: 3, col: 1 }], color: '#bb3e03', label: 'L+' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 1, col: 0 },
+      { row: 2, col: 0 },
+      { row: 3, col: 0 },
+      { row: 3, col: 1 },
+    ],
+    color: '#bb3e03',
+    label: 'L+',
+  },
   // 5 horizontal
-  { cells: [{ row: 0, col: 0 }, { row: 0, col: 1 }, { row: 0, col: 2 }, { row: 0, col: 3 }, { row: 0, col: 4 }], color: '#9b2226', label: '1×5' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 0, col: 1 },
+      { row: 0, col: 2 },
+      { row: 0, col: 3 },
+      { row: 0, col: 4 },
+    ],
+    color: '#9b2226',
+    label: '1×5',
+  },
   // 5 vertical
-  { cells: [{ row: 0, col: 0 }, { row: 1, col: 0 }, { row: 2, col: 0 }, { row: 3, col: 0 }, { row: 4, col: 0 }], color: '#ae2012', label: '5×1' },
+  {
+    cells: [
+      { row: 0, col: 0 },
+      { row: 1, col: 0 },
+      { row: 2, col: 0 },
+      { row: 3, col: 0 },
+      { row: 4, col: 0 },
+    ],
+    color: '#ae2012',
+    label: '5×1',
+  },
 ]
 
 // ─── Board operations ───────────────────────────────────────────
@@ -142,7 +298,10 @@ export function clearLines(board: Board): { board: Board; cleared: number } {
   for (let c = 0; c < BOARD_SIZE; c++) {
     let full = true
     for (let r = 0; r < BOARD_SIZE; r++) {
-      if (newBoard[r][c] === 0) { full = false; break }
+      if (newBoard[r][c] === 0) {
+        full = false
+        break
+      }
     }
     if (full) {
       for (let r = 0; r < BOARD_SIZE; r++) {

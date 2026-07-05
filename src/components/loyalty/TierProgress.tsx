@@ -1,4 +1,10 @@
-import { getNextTier, getPointsToNextTier, getTierProgress, TIERS, type TierLevel } from '@/lib/mock-data'
+import {
+  getNextTier,
+  getPointsToNextTier,
+  getTierProgress,
+  TIERS,
+  type TierLevel,
+} from '@/lib/mock-data'
 
 interface TierProgressProps {
   points: number
@@ -50,7 +56,11 @@ export default function TierProgress({ points, tier }: TierProgressProps) {
           const pos = idx === 0 ? '0%' : idx === 1 ? '33%' : '100%'
           const isActive = TIERS.findIndex((tt) => tt.level === tier) >= idx
           return (
-            <div key={t.level} className="flex flex-col items-center" style={{ position: 'absolute', left: pos, transform: 'translateX(-50%)' }}>
+            <div
+              key={t.level}
+              className="flex flex-col items-center"
+              style={{ position: 'absolute', left: pos, transform: 'translateX(-50%)' }}
+            >
               <div
                 className="h-2 w-2 rounded-full border transition-colors"
                 style={{
@@ -58,7 +68,13 @@ export default function TierProgress({ points, tier }: TierProgressProps) {
                   backgroundColor: isActive ? t.color : 'transparent',
                 }}
               />
-              <span className="mt-1 font-mono text-[9px] uppercase tracking-wider" style={{ color: isActive ? t.color : 'var(--foreground)', opacity: isActive ? 1 : 0.3 }}>
+              <span
+                className="mt-1 font-mono text-[9px] uppercase tracking-wider"
+                style={{
+                  color: isActive ? t.color : 'var(--foreground)',
+                  opacity: isActive ? 1 : 0.3,
+                }}
+              >
                 {t.nameMn}
               </span>
             </div>
@@ -69,13 +85,12 @@ export default function TierProgress({ points, tier }: TierProgressProps) {
       {/* points in current tier range */}
       {nextTier && (
         <p className="mt-6 text-center font-mono text-xs text-foreground/40">
-          {points - current.threshold} / {nextTier.threshold - current.threshold} pts in {current.nameMn} tier
+          {points - current.threshold} / {nextTier.threshold - current.threshold} pts in{' '}
+          {current.nameMn} tier
         </p>
       )}
       {!nextTier && (
-        <p className="mt-6 text-center font-mono text-xs text-accent">
-          Maximum tier reached!
-        </p>
+        <p className="mt-6 text-center font-mono text-xs text-accent">Maximum tier reached!</p>
       )}
     </div>
   )

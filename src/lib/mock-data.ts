@@ -12,8 +12,22 @@ export interface TierConfig {
 }
 
 export const TIERS: TierConfig[] = [
-  { level: 'bronze', name: 'Bronze', nameMn: 'Hurel', threshold: 0, color: '#cd7f32', multiplier: 1 },
-  { level: 'silver', name: 'Silver', nameMn: 'Mungu', threshold: 500, color: '#c0c0c0', multiplier: 1.5 },
+  {
+    level: 'bronze',
+    name: 'Bronze',
+    nameMn: 'Hurel',
+    threshold: 0,
+    color: '#cd7f32',
+    multiplier: 1,
+  },
+  {
+    level: 'silver',
+    name: 'Silver',
+    nameMn: 'Mungu',
+    threshold: 500,
+    color: '#c0c0c0',
+    multiplier: 1.5,
+  },
   { level: 'gold', name: 'Gold', nameMn: 'Alt', threshold: 1500, color: '#c9a24b', multiplier: 2 },
 ]
 
@@ -52,7 +66,13 @@ export interface Transaction {
 export const MOCK_TRANSACTIONS: Transaction[] = [
   { id: 'tx_001', date: '2025-06-28', description: 'Croissant purchase', points: 24, type: 'earn' },
   { id: 'tx_002', date: '2025-06-25', description: 'Birthday bonus', points: 100, type: 'earn' },
-  { id: 'tx_003', date: '2025-06-20', description: 'Free cake redeem', points: -500, type: 'redeem' },
+  {
+    id: 'tx_003',
+    date: '2025-06-20',
+    description: 'Free cake redeem',
+    points: -500,
+    type: 'redeem',
+  },
   { id: 'tx_004', date: '2025-06-18', description: 'Set menu purchase', points: 65, type: 'earn' },
   { id: 'tx_005', date: '2025-06-12', description: 'Latte & pastry', points: 18, type: 'earn' },
 ]

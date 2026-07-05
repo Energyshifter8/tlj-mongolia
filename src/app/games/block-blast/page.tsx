@@ -1,19 +1,19 @@
 'use client'
 
-import { useReducer, useCallback, useState, useMemo, useEffect, useRef } from 'react'
-import {
-  createInitialState,
-  canPlace,
-  placePieceOnBoard,
-  BOARD_SIZE,
-  type GameState,
-  type Position,
-  type PieceShape,
-} from '@/lib/block-blast-engine'
+import { useCallback, useEffect, useMemo, useReducer, useRef } from 'react'
 import BlockBlastBoard from '@/components/games/BlockBlastBoard'
 import BlockBlastPieces from '@/components/games/BlockBlastPieces'
 import GameOverModal from '@/components/games/GameOverModal'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
+import {
+  BOARD_SIZE,
+  canPlace,
+  createInitialState,
+  type GameState,
+  type PieceShape,
+  type Position,
+  placePieceOnBoard,
+} from '@/lib/block-blast-engine'
 
 // ─── Helpers ────────────────────────────────────────────────────
 
@@ -182,9 +182,7 @@ export default function BlockBlastPage() {
     <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
       {/* heading */}
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">
-          Block Blast
-        </h1>
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">Block Blast</h1>
         <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
           Place blocks. Clear lines.
         </p>
@@ -193,16 +191,26 @@ export default function BlockBlastPage() {
       {/* score */}
       <div className="flex items-center gap-8">
         <div className="text-center">
-          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">Score</span>
-          <span className="font-display text-2xl font-bold text-accent">{game.score.toLocaleString()}</span>
+          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+            Score
+          </span>
+          <span className="font-display text-2xl font-bold text-accent">
+            {game.score.toLocaleString()}
+          </span>
         </div>
         <div className="text-center">
-          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">Combo</span>
+          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+            Combo
+          </span>
           <span className="font-display text-2xl font-bold text-foreground/70">×{game.combo}</span>
         </div>
         <div className="text-center">
-          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">Best</span>
-          <span className="font-display text-2xl font-bold text-foreground/50">{game.highScore.toLocaleString()}</span>
+          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+            Best
+          </span>
+          <span className="font-display text-2xl font-bold text-foreground/50">
+            {game.highScore.toLocaleString()}
+          </span>
         </div>
       </div>
 
@@ -249,11 +257,7 @@ export default function BlockBlastPage() {
 
       {/* game over modal */}
       {game.gameOver && (
-        <GameOverModal
-          score={game.score}
-          highScore={game.highScore}
-          onRestart={handleRestart}
-        />
+        <GameOverModal score={game.score} highScore={game.highScore} onRestart={handleRestart} />
       )}
     </div>
   )

@@ -1,16 +1,18 @@
 'use client'
 
-import { useWordleGame } from '@/hooks/useWordleGame'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import WordleGrid from '@/components/games/WordleGrid'
 import WordleKeyboard from '@/components/games/WordleKeyboard'
-import { MAX_ATTEMPTS } from '@/lib/word-list'
-import { useCallback, useRef, useState, useEffect } from 'react'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
+import { useWordleGame } from '@/hooks/useWordleGame'
+import { MAX_ATTEMPTS } from '@/lib/word-list'
 
-function ShareButton({ attempts, status, target }: {
+function ShareButton({
+  attempts,
+  status,
+}: {
   attempts: { letter: string; status: string }[][]
   status: string
-  target: string
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [shared, setShared] = useState(false)
@@ -36,7 +38,11 @@ function ShareButton({ attempts, status, target }: {
 
     ctx.fillStyle = '#f2ead9'
     ctx.font = '14px monospace'
-    ctx.fillText(`${status === 'won' ? 'Won' : 'Lost'} in ${attempts.filter((r) => r.some((t) => t.letter)).length}/${MAX_ATTEMPTS}`, w / 2, 90)
+    ctx.fillText(
+      `${status === 'won' ? 'Won' : 'Lost'} in ${attempts.filter((r) => r.some((t) => t.letter)).length}/${MAX_ATTEMPTS}`,
+      w / 2,
+      90,
+    )
 
     // grid
     const tileSize = 52
@@ -79,7 +85,7 @@ function ShareButton({ attempts, status, target }: {
     ctx.fillText('TLJ Mongolia — Pâtisserie', w / 2, h - 30)
 
     return canvas.toDataURL('image/png')
-  }, [attempts, status, target])
+  }, [attempts, status])
 
   function downloadImage(dataUrl: string) {
     const a = document.createElement('a')
@@ -118,7 +124,13 @@ function ShareButton({ attempts, status, target }: {
         onClick={handleShare}
         className="flex items-center gap-2 rounded-xl border border-accent/30 bg-surface/60 px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-accent transition-all hover:border-accent/60 hover:bg-surface-light/60"
       >
-        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <svg
+          className="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
           <rect x="3" y="3" width="18" height="18" rx="2" />
           <circle cx="12" cy="12" r="3" />
           <path d="M12 2v2m0 16v2M2 12h2m16 0h2" />
@@ -137,9 +149,7 @@ export default function WordlePage() {
   // report score once on game end
   useEffect(() => {
     if (game.status !== 'playing' && !scoreReportedRef.current) {
-      const wordleScore = game.status === 'won'
-        ? (MAX_ATTEMPTS - game.currentRow + 1) * 100
-        : 0
+      const wordleScore = game.status === 'won' ? (MAX_ATTEMPTS - game.currentRow + 1) * 100 : 0
       if (wordleScore > 0) {
         addScore('wordle', wordleScore)
       }
@@ -151,9 +161,7 @@ export default function WordlePage() {
     <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
       {/* heading */}
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">
-          TLJ Wordle
-        </h1>
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">TLJ Wordle</h1>
         <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
           5 letters &middot; {MAX_ATTEMPTS} attempts
         </p>
@@ -174,7 +182,6 @@ export default function WordlePage() {
       {/* grid */}
       <WordleGrid
         attempts={game.attempts}
-        currentRow={game.currentRow}
         shakeRow={game.shakeRow}
         revealedRows={game.revealedRows}
       />
@@ -189,11 +196,7 @@ export default function WordlePage() {
       />
 
       {/* share */}
-      <ShareButton
-        attempts={game.attempts}
-        status={game.status}
-        target={game.target}
-      />
+      <ShareButton attempts={game.attempts} status={game.status} />
 
       {/* reset */}
       {game.status !== 'playing' && (

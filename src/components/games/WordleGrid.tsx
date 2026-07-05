@@ -1,6 +1,6 @@
 'use client'
 
-import type { Tile, LetterStatus } from '@/hooks/useWordleGame'
+import type { LetterStatus, Tile } from '@/hooks/useWordleGame'
 
 interface WordleGridProps {
   attempts: Tile[][]
@@ -16,17 +16,15 @@ const STATUS_STYLES: Record<LetterStatus, string> = {
   empty: 'border-muted bg-transparent text-foreground',
 }
 
-function TileCell({ tile, colIdx, revealed }: {
-  tile: Tile
-  colIdx: number
-  revealed: boolean
-}) {
+function TileCell({ tile, colIdx, revealed }: { tile: Tile; colIdx: number; revealed: boolean }) {
   const delay = revealed ? colIdx * 300 : 0
 
   return (
     <div
       className={`flex h-14 w-14 items-center justify-center rounded-md border-2 font-display text-2xl font-bold transition-all duration-300 sm:h-16 sm:w-16 ${
-        revealed ? STATUS_STYLES[tile.status] : STATUS_STYLES[tile.status === 'tbd' ? 'tbd' : 'empty']
+        revealed
+          ? STATUS_STYLES[tile.status]
+          : STATUS_STYLES[tile.status === 'tbd' ? 'tbd' : 'empty']
       } ${revealed ? 'wordle-reveal' : ''}`}
       style={revealed ? { animationDelay: `${delay}ms` } : undefined}
     >

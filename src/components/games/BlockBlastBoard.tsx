@@ -45,7 +45,10 @@ export default function BlockBlastBoard({
                 }`}
                 style={
                   isPreview
-                    ? { backgroundColor: `${previewColor}30`, boxShadow: `inset 0 0 0 1px ${previewColor}, inset 0 0 8px ${previewColor}40` }
+                    ? {
+                        backgroundColor: `${previewColor}30`,
+                        boxShadow: `inset 0 0 0 1px ${previewColor}, inset 0 0 8px ${previewColor}40`,
+                      }
                     : isFilled
                       ? undefined
                       : undefined

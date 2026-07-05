@@ -1,7 +1,7 @@
 'use client'
 
-import { MOCK_LEADERBOARD, type LeaderboardUser } from '@/lib/mock-data'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
+import { type LeaderboardUser, MOCK_LEADERBOARD } from '@/lib/mock-data'
 
 function RankBadge({ rank }: { rank: number }) {
   if (rank === 1) {
@@ -48,16 +48,18 @@ function UserRow({ user, highlight }: { user: LeaderboardUser; highlight?: boole
       </div>
 
       <div className="flex-1">
-        <p className={`font-display text-sm font-semibold ${highlight ? 'text-accent' : 'text-foreground/80'}`}>
+        <p
+          className={`font-display text-sm font-semibold ${highlight ? 'text-accent' : 'text-foreground/80'}`}
+        >
           {user.name}
         </p>
-        <p className="font-mono text-[10px] text-foreground/30">
-          {user.gamesPlayed} games
-        </p>
+        <p className="font-mono text-[10px] text-foreground/30">{user.gamesPlayed} games</p>
       </div>
 
       <div className="text-right">
-        <p className={`font-mono text-sm font-bold ${user.rank <= 3 ? 'text-accent' : 'text-foreground/60'}`}>
+        <p
+          className={`font-mono text-sm font-bold ${user.rank <= 3 ? 'text-accent' : 'text-foreground/60'}`}
+        >
           {user.totalScore.toLocaleString()}
         </p>
         <p className="font-mono text-[10px] text-foreground/30">pts</p>
@@ -104,9 +106,7 @@ export default function LeaderboardPage() {
     <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
       {/* heading */}
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">
-          Leaderboard
-        </h1>
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">Leaderboard</h1>
         <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
           Top players this month
         </p>
@@ -118,7 +118,9 @@ export default function LeaderboardPage() {
           <p className="font-mono text-[10px] uppercase tracking-widest text-foreground/40">
             Your total score
           </p>
-          <p className="font-display text-2xl font-bold text-accent">{totalScore.toLocaleString()}</p>
+          <p className="font-display text-2xl font-bold text-accent">
+            {totalScore.toLocaleString()}
+          </p>
         </div>
       )}
 

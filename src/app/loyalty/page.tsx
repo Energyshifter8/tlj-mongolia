@@ -1,7 +1,7 @@
-import { MOCK_USER, MOCK_TRANSACTIONS } from '@/lib/mock-data'
 import LoyaltyCard from '@/components/loyalty/LoyaltyCard'
 import TierProgress from '@/components/loyalty/TierProgress'
 import WalletButtons from '@/components/loyalty/WalletButtons'
+import { MOCK_TRANSACTIONS, MOCK_USER } from '@/lib/mock-data'
 
 export default function LoyaltyPage() {
   return (
@@ -45,7 +45,8 @@ export default function LoyaltyPage() {
                   tx.type === 'earn' ? 'text-accent' : 'text-foreground/40'
                 }`}
               >
-                {tx.type === 'earn' ? '+' : ''}{tx.points}
+                {tx.type === 'earn' ? '+' : ''}
+                {tx.points}
               </span>
             </li>
           ))}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer, useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
 import { getRandomWord, MAX_ATTEMPTS, WORD_LENGTH } from '@/lib/word-list'
 
 // ─── Types ──────────────────────────────────────────────────────
@@ -128,9 +128,7 @@ function reducer(state: GameState, action: Action): GameState {
       const won = guess === state.target
       const lost = state.currentRow >= MAX_ATTEMPTS - 1
 
-      const newAttempts = state.attempts.map((row, i) =>
-        i === state.currentRow ? evaluated : row,
-      )
+      const newAttempts = state.attempts.map((row, i) => (i === state.currentRow ? evaluated : row))
 
       return {
         ...state,
@@ -182,7 +180,7 @@ export function useWordleGame() {
   }, [])
 
   const deleteLetter = useCallback(() => {
-    dispatch({ type: 'DELETE' }, )
+    dispatch({ type: 'DELETE' })
   }, [])
 
   const submitGuess = useCallback(() => {
@@ -225,7 +223,11 @@ export function useWordleGame() {
       if (tile.status === 'empty' || tile.status === 'tbd') continue
       const existing = keyStatuses.get(tile.letter)
       // correct > present > absent
-      if (!existing || tile.status === 'correct' || (tile.status === 'present' && existing === 'absent')) {
+      if (
+        !existing ||
+        tile.status === 'correct' ||
+        (tile.status === 'present' && existing === 'absent')
+      ) {
         keyStatuses.set(tile.letter, tile.status)
       }
     }

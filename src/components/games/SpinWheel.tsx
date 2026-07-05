@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { SPIN_SECTORS, type SpinSector } from '@/lib/mock-data'
 
 interface SpinWheelProps {
@@ -51,7 +51,7 @@ export default function SpinWheel({ size = 300, onSpin }: SpinWheelProps) {
     const startTime = performance.now()
 
     function easeOutCubic(t: number) {
-      return 1 - Math.pow(1 - t, 4)
+      return 1 - (1 - t) ** 4
     }
 
     function animate(now: number) {
@@ -79,7 +79,13 @@ export default function SpinWheel({ size = 300, onSpin }: SpinWheelProps) {
         {/* pointer */}
         <div
           className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-1"
-          style={{ width: 0, height: 0, borderLeft: '10px solid transparent', borderRight: '10px solid transparent', borderTop: '18px solid #c9a24b' }}
+          style={{
+            width: 0,
+            height: 0,
+            borderLeft: '10px solid transparent',
+            borderRight: '10px solid transparent',
+            borderTop: '18px solid #c9a24b',
+          }}
         />
 
         {/* wheel SVG */}
@@ -130,7 +136,16 @@ export default function SpinWheel({ size = 300, onSpin }: SpinWheelProps) {
 
           {/* center circle */}
           <circle cx={cx} cy={cy} r={20} fill="#0a0908" stroke="#c9a24b" strokeWidth="2" />
-          <text x={cx} y={cy + 1} textAnchor="middle" dominantBaseline="middle" fill="#c9a24b" fontSize="10" fontFamily="monospace" fontWeight="bold">
+          <text
+            x={cx}
+            y={cy + 1}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill="#c9a24b"
+            fontSize="10"
+            fontFamily="monospace"
+            fontWeight="bold"
+          >
             TLJ
           </text>
         </svg>

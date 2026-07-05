@@ -26,7 +26,13 @@ const STATUS_COLORS: Record<LetterStatus, string> = {
   tbd: 'bg-surface-light text-foreground/80 border-muted',
 }
 
-export default function WordleKeyboard({ onKey, onDelete, onSubmit, keyStatuses, disabled }: WordleKeyboardProps) {
+export default function WordleKeyboard({
+  onKey,
+  onDelete,
+  onSubmit,
+  keyStatuses,
+  disabled,
+}: WordleKeyboardProps) {
   return (
     <div className="flex flex-col items-center gap-1.5">
       {ROWS.map((row, i) => (

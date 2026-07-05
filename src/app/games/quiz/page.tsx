@@ -1,8 +1,8 @@
 'use client'
 
-import { useReducer, useCallback } from 'react'
-import { QUIZ_QUESTIONS } from '@/lib/mock-data'
+import { useCallback, useReducer } from 'react'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
+import { QUIZ_QUESTIONS } from '@/lib/mock-data'
 
 // ─── State ──────────────────────────────────────────────────────
 
@@ -13,10 +13,7 @@ interface QuizState {
   finished: boolean
 }
 
-type Action =
-  | { type: 'ANSWER'; index: number }
-  | { type: 'NEXT' }
-  | { type: 'RESTART' }
+type Action = { type: 'ANSWER'; index: number } | { type: 'NEXT' } | { type: 'RESTART' }
 
 function reducer(state: QuizState, action: Action): QuizState {
   switch (action.type) {
@@ -88,9 +85,7 @@ export default function QuizPage() {
     <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
       {/* heading */}
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">
-          TLJ Quiz
-        </h1>
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">TLJ Quiz</h1>
         <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
           Test your TLJ knowledge
         </p>
@@ -118,9 +113,7 @@ export default function QuizPage() {
           <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-foreground/30">
             Асуулт {state.currentQ + 1} / {QUIZ_QUESTIONS.length}
           </p>
-          <h2 className="font-display text-xl font-semibold text-foreground">
-            {q.question}
-          </h2>
+          <h2 className="font-display text-xl font-semibold text-foreground">{q.question}</h2>
 
           {/* options */}
           <div className="mt-6 flex flex-col gap-3">
@@ -176,9 +169,7 @@ export default function QuizPage() {
               Таны оноо
             </p>
             <p className="font-display text-5xl font-bold text-accent">{state.score}</p>
-            <p className="font-mono text-xs text-foreground/40">
-              / {QUIZ_QUESTIONS.length * 20}
-            </p>
+            <p className="font-mono text-xs text-foreground/40">/ {QUIZ_QUESTIONS.length * 20}</p>
           </div>
 
           <div className="text-center">

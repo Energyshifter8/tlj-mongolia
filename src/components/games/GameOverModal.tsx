@@ -12,9 +12,7 @@ export default function GameOverModal({ score, highScore, onRestart }: GameOverM
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
       <div className="mx-4 w-full max-w-sm rounded-2xl border border-muted bg-surface p-8 text-center shadow-2xl">
-        <h2 className="font-display text-2xl font-bold text-accent">
-          Тоглоом дуусав!
-        </h2>
+        <h2 className="font-display text-2xl font-bold text-accent">Тоглоом дуусав!</h2>
 
         <div className="mt-6 flex flex-col items-center gap-2">
           <span className="font-mono text-[10px] uppercase tracking-widest text-foreground/40">
@@ -35,9 +33,7 @@ export default function GameOverModal({ score, highScore, onRestart }: GameOverM
           <span className="font-mono text-[10px] uppercase tracking-widest text-foreground/30">
             Дээд оноо
           </span>
-          <span className="font-mono text-sm text-foreground/60">
-            {highScore.toLocaleString()}
-          </span>
+          <span className="font-mono text-sm text-foreground/60">{highScore.toLocaleString()}</span>
         </div>
 
         <button
