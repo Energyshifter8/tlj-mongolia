@@ -1,6 +1,6 @@
 'use client'
 
-import { useReducer, useCallback, useState, useMemo } from 'react'
+import { useReducer, useCallback, useState, useMemo, useEffect } from 'react'
 import {
   createInitialState,
   canPlace,
@@ -13,6 +13,7 @@ import {
 import BlockBlastBoard from '@/components/games/BlockBlastBoard'
 import BlockBlastPieces from '@/components/games/BlockBlastPieces'
 import GameOverModal from '@/components/games/GameOverModal'
+import { useGamesScore } from '@/contexts/GamesScoreContext'
 
 // ─── Helpers ────────────────────────────────────────────────────
 
@@ -124,6 +125,17 @@ export default function BlockBlastPage() {
     hoverRow: null,
     hoverCol: null,
   }))
+
+  const { addScore } = useGamesScore()
+  const [scoreReported, setScoreReported] = useState(false)
+
+  // report score on game over
+  useEffect(() => {
+    if (state.game.gameOver && !scoreReported && state.game.score > 0) {
+      addScore('block-blast', state.game.score)
+      setScoreReported(true)
+    }
+  }, [state.game.gameOver, scoreReported, addScore, state.game.score])
 
   const { game, selectedPiece, hoverRow, hoverCol } = state
 

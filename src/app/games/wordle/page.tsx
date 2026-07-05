@@ -4,7 +4,8 @@ import { useWordleGame } from '@/hooks/useWordleGame'
 import WordleGrid from '@/components/games/WordleGrid'
 import WordleKeyboard from '@/components/games/WordleKeyboard'
 import { MAX_ATTEMPTS } from '@/lib/word-list'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef, useState, useEffect } from 'react'
+import { useGamesScore } from '@/contexts/GamesScoreContext'
 
 function ShareButton({ attempts, status, target }: {
   attempts: { letter: string; status: string }[][]
@@ -130,6 +131,21 @@ function ShareButton({ attempts, status, target }: {
 
 export default function WordlePage() {
   const game = useWordleGame()
+  const { addScore } = useGamesScore()
+  const [scoreReported, setScoreReported] = useState(false)
+
+  // report score once on game end
+  useEffect(() => {
+    if (game.status !== 'playing' && !scoreReported) {
+      const wordleScore = game.status === 'won'
+        ? (MAX_ATTEMPTS - game.currentRow + 1) * 100
+        : 0
+      if (wordleScore > 0) {
+        addScore('wordle', wordleScore)
+      }
+      setScoreReported(true)
+    }
+  }, [game.status, scoreReported, addScore, game.currentRow])
 
   return (
     <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">

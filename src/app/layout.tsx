@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import Footer from '@/components/layout/Footer'
 import Navbar from '@/components/layout/Navbar'
 import ServiceWorkerRegister from '@/components/layout/ServiceWorkerRegister'
+import { GamesScoreProvider } from '@/contexts/GamesScoreContext'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -54,10 +55,12 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-192.png" sizes="192x192" />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <ServiceWorkerRegister />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <GamesScoreProvider>
+          <ServiceWorkerRegister />
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </GamesScoreProvider>
       </body>
     </html>
   )

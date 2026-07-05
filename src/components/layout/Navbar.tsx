@@ -17,7 +17,7 @@ const defaultLinks: NavLink[] = [
   { label: 'Home', href: '/' },
   { label: '3D Showcase', href: '/showcase' },
   { label: 'Loyalty', href: '/loyalty' },
-  { label: 'Games', href: '/games' },
+  { label: 'Games', href: '/games/wordle' },
   { label: 'Leaderboard', href: '/leaderboard' },
 ]
 
