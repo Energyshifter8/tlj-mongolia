@@ -1,7 +1,8 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import Footer from '@/components/layout/Footer'
 import Navbar from '@/components/layout/Navbar'
+import ServiceWorkerRegister from '@/components/layout/ServiceWorkerRegister'
 import './globals.css'
 
 const playfair = Playfair_Display({
@@ -23,8 +24,20 @@ const jetbrains = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'TLJ Mongolia — Premium Franco-Asian Pâtisserie',
-  description: 'An immersive digital experience for TLJ pâtisserie',
+  title: 'TOUS les JOURS Mongolia — Premium Franco-Asian Patisserie',
+  description: 'An immersive digital experience for TLJ patisserie',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'TLJ Mongolia',
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#c9a24b',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -37,7 +50,11 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${inter.variable} ${jetbrains.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" sizes="192x192" />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <ServiceWorkerRegister />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
