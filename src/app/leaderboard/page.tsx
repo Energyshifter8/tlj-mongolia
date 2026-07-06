@@ -1,12 +1,24 @@
 'use client'
 
+import { useRef } from 'react'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
+import { useScrollTriggerFade } from '@/hooks/useScrollTriggerFade'
 import { type LeaderboardUser, MOCK_LEADERBOARD } from '@/lib/mock-data'
+
+function FadeSection({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLElement>(null)
+  useScrollTriggerFade(ref)
+  return (
+    <section ref={ref} className={className}>
+      {children}
+    </section>
+  )
+}
 
 function RankBadge({ rank }: { rank: number }) {
   if (rank === 1) {
     return (
-      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-[#c9a24b]/20 text-sm font-bold text-[#c9a24b]">
+      <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-accent-gold/20 text-sm font-bold text-accent-gold">
         🥇
       </span>
     )
@@ -26,7 +38,7 @@ function RankBadge({ rank }: { rank: number }) {
     )
   }
   return (
-    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface text-xs font-mono text-foreground/40">
+    <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-bg-elevated text-xs font-mono text-text-tertiary">
       {rank}
     </span>
   )
@@ -37,32 +49,32 @@ function UserRow({ user, highlight }: { user: LeaderboardUser; highlight?: boole
     <div
       className={`flex items-center gap-3 rounded-xl px-4 py-3 transition-all ${
         highlight
-          ? 'border border-accent/30 bg-accent/5'
-          : 'border border-transparent hover:bg-surface-light/40'
+          ? 'border border-accent-gold/30 bg-accent-gold/5'
+          : 'border border-transparent hover:bg-bg-elevated'
       }`}
     >
       <RankBadge rank={user.rank} />
 
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted/50 text-sm">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-bg-elevated text-sm">
         {user.avatar}
       </div>
 
       <div className="flex-1">
         <p
-          className={`font-display text-sm font-semibold ${highlight ? 'text-accent' : 'text-foreground/80'}`}
+          className={`font-display text-sm font-semibold ${highlight ? 'text-accent-gold' : 'text-text-primary'}`}
         >
           {user.name}
         </p>
-        <p className="font-mono text-[10px] text-foreground/30">{user.gamesPlayed} games</p>
+        <p className="font-mono text-[10px] text-text-tertiary">{user.gamesPlayed} games</p>
       </div>
 
       <div className="text-right">
         <p
-          className={`font-mono text-sm font-bold ${user.rank <= 3 ? 'text-accent' : 'text-foreground/60'}`}
+          className={`font-mono text-sm font-bold ${user.rank <= 3 ? 'text-accent-gold' : 'text-text-secondary'}`}
         >
           {user.totalScore.toLocaleString()}
         </p>
-        <p className="font-mono text-[10px] text-foreground/30">pts</p>
+        <p className="font-mono text-[10px] text-text-tertiary">pts</p>
       </div>
     </div>
   )
@@ -103,33 +115,37 @@ export default function LeaderboardPage() {
   const display = merged.slice(0, 20)
 
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
+    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12 animate-[fadeIn_300ms_ease-out]">
       {/* heading */}
-      <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">Leaderboard</h1>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
+      <FadeSection className="w-full text-center">
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent-gold">Leaderboard</h1>
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-text-tertiary">
           Top players this month
         </p>
-      </div>
+      </FadeSection>
 
       {/* user total */}
       {totalScore > 0 && (
-        <div className="w-full rounded-xl border border-accent/30 bg-surface/60 p-4 text-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-foreground/40">
-            Your total score
-          </p>
-          <p className="font-display text-2xl font-bold text-accent">
-            {totalScore.toLocaleString()}
-          </p>
-        </div>
+        <FadeSection className="w-full">
+          <div className="w-full rounded-xl border border-accent-gold/30 bg-bg-elevated p-4 text-center">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
+              Your total score
+            </p>
+            <p className="font-display text-2xl font-bold text-accent-gold">
+              {totalScore.toLocaleString()}
+            </p>
+          </div>
+        </FadeSection>
       )}
 
       {/* list */}
-      <div className="flex w-full flex-col gap-1.5">
-        {display.map((user) => (
-          <UserRow key={`${user.name}-${user.rank}`} user={user} highlight={user.name === 'You'} />
-        ))}
-      </div>
+      <FadeSection className="w-full">
+        <div className="flex w-full flex-col gap-1.5">
+          {display.map((user) => (
+            <UserRow key={`${user.name}-${user.rank}`} user={user} highlight={user.name === 'You'} />
+          ))}
+        </div>
+      </FadeSection>
     </div>
   )
 }

@@ -4,8 +4,19 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import WordleGrid from '@/components/games/WordleGrid'
 import WordleKeyboard from '@/components/games/WordleKeyboard'
 import { useGamesScore } from '@/contexts/GamesScoreContext'
+import { useScrollTriggerFade } from '@/hooks/useScrollTriggerFade'
 import { useWordleGame } from '@/hooks/useWordleGame'
 import { MAX_ATTEMPTS } from '@/lib/word-list'
+
+function FadeSection({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLElement>(null)
+  useScrollTriggerFade(ref)
+  return (
+    <section ref={ref} className={className}>
+      {children}
+    </section>
+  )
+}
 
 function ShareButton({
   attempts,
@@ -122,7 +133,7 @@ function ShareButton({
       <button
         type="button"
         onClick={handleShare}
-        className="flex items-center gap-2 rounded-xl border border-accent/30 bg-surface/60 px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-accent transition-all hover:border-accent/60 hover:bg-surface-light/60"
+        className="flex items-center gap-2 rounded-xl border border-accent-gold/30 bg-bg-elevated px-6 py-3 font-mono text-xs font-semibold uppercase tracking-widest text-accent-gold transition-all hover:border-accent-gold/60 hover:bg-bg-surface"
       >
         <svg
           className="h-4 w-4"
@@ -158,14 +169,14 @@ export default function WordlePage() {
   }, [game.status, addScore, game.currentRow])
 
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
+    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12 animate-[fadeIn_300ms_ease-out]">
       {/* heading */}
-      <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">TLJ Wordle</h1>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
+      <FadeSection className="w-full text-center">
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent-gold">TLJ Wordle</h1>
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-text-tertiary">
           5 letters &middot; {MAX_ATTEMPTS} attempts
         </p>
-      </div>
+      </FadeSection>
 
       {/* status */}
       {game.status === 'won' && (
@@ -180,30 +191,36 @@ export default function WordlePage() {
       )}
 
       {/* grid */}
-      <WordleGrid
-        attempts={game.attempts}
-        shakeRow={game.shakeRow}
-        revealedRows={game.revealedRows}
-      />
+      <FadeSection className="w-full flex justify-center">
+        <WordleGrid
+          attempts={game.attempts}
+          shakeRow={game.shakeRow}
+          revealedRows={game.revealedRows}
+        />
+      </FadeSection>
 
       {/* keyboard */}
-      <WordleKeyboard
-        onKey={game.inputLetter}
-        onDelete={game.deleteLetter}
-        onSubmit={game.submitGuess}
-        keyStatuses={game.keyStatuses}
-        disabled={game.status !== 'playing'}
-      />
+      <FadeSection className="w-full flex justify-center">
+        <WordleKeyboard
+          onKey={game.inputLetter}
+          onDelete={game.deleteLetter}
+          onSubmit={game.submitGuess}
+          keyStatuses={game.keyStatuses}
+          disabled={game.status !== 'playing'}
+        />
+      </FadeSection>
 
       {/* share */}
-      <ShareButton attempts={game.attempts} status={game.status} />
+      <FadeSection className="w-full flex justify-center">
+        <ShareButton attempts={game.attempts} status={game.status} />
+      </FadeSection>
 
       {/* reset */}
       {game.status !== 'playing' && (
         <button
           type="button"
           onClick={game.resetGame}
-          className="rounded-lg border border-muted px-6 py-2 font-mono text-xs uppercase tracking-widest text-foreground/50 transition-all hover:border-accent hover:text-accent"
+          className="rounded-lg border border-border-default px-6 py-2 font-mono text-xs uppercase tracking-widest text-text-secondary transition-all hover:border-accent-gold hover:text-accent-gold"
         >
           Play Again
         </button>
