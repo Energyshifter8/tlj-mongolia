@@ -48,6 +48,7 @@ export default function PinnedSection({
       scrub: 0.6,
       start: 'top top',
       end: scrollDistance,
+      markers: true,
       onUpdate: (self) => {
         const p = self.progress
         gsap.set(content, {
