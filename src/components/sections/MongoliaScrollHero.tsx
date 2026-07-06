@@ -61,7 +61,7 @@ export default function MongoliaScrollHero() {
 
     const st = ScrollTrigger.create({
       trigger: container,
-      pin: !isMobile,
+      pin: false,
       scrub: true,
       start: "top top",
       end: endValue,
@@ -97,7 +97,7 @@ export default function MongoliaScrollHero() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-black overflow-hidden"
+      className="sticky top-0 min-h-screen bg-black overflow-hidden"
     >
       <div
         ref={counterRef}
