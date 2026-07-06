@@ -8,7 +8,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ClientShowcase from '@/components/three/ClientShowcase'
 import FalconOverlay from '@/components/three/FalconOverlay'
 import HeroSceneWrapper from '@/components/three/HeroSceneWrapper'
+import PinnedSection from '@/components/ui/PinnedSection'
 import ScrollReveal from '@/components/ui/ScrollReveal'
+import { useScrollProgress } from '@/hooks/useScrollProgress'
 import { useScrollTriggerFade } from '@/hooks/useScrollTriggerFade'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -95,14 +97,10 @@ const features = [
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null)
   const heroWrapperRef = useRef<HTMLDivElement>(null)
-  const brandRef = useRef<HTMLElement>(null)
   const featuresRef = useRef<HTMLElement>(null)
-  const showcaseRef = useRef<HTMLElement>(null)
+  const scrollProgress = useScrollProgress()
 
-  useScrollTriggerFade(brandRef)
-  useScrollTriggerFade(featuresRef)
-  useScrollTriggerFade(showcaseRef)
-
+  // Hero scroll-out effect (existing)
   useEffect(() => {
     const hero = heroRef.current
     const heroWrapper = heroWrapperRef.current
@@ -110,8 +108,8 @@ export default function Home() {
 
     const st = ScrollTrigger.create({
       trigger: hero,
-      start: "top top",
-      end: "bottom top",
+      start: 'top top',
+      end: 'bottom top',
       scrub: true,
       onUpdate: (self) => {
         const p = self.progress
@@ -128,12 +126,22 @@ export default function Home() {
     }
   }, [])
 
+  // Features normal scroll-reveal (no pinning)
+  useScrollTriggerFade(featuresRef)
+
   return (
     <>
+      {/* ── Scroll percentage counter ───────────────── */}
+      <div className="fixed bottom-6 right-6 z-50 pointer-events-none select-none">
+        <span className="font-mono text-sm tabular-nums text-accent-gold/70">
+          {String(scrollProgress).padStart(2, '0')}%
+        </span>
+      </div>
+
       {/* ── Falcon flight overlay ──────────────────── */}
       <FalconOverlay />
 
-      {/* ── Hero ───────────────────────────────────── */}
+      {/* ── Hero (unpinned, has its own scroll-out) ── */}
       <section
         ref={heroRef}
         className="relative flex min-h-screen items-center justify-center overflow-hidden"
@@ -200,39 +208,41 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 z-[1] h-32 bg-gradient-to-t from-bg-deep to-transparent" />
       </section>
 
-      {/* ── Brand Story ────────────────────────────── */}
-      <section ref={brandRef} className="border-t border-border-subtle bg-bg-elevated px-4 py-24" aria-label="Brand story">
-        <div className="mx-auto max-w-3xl text-center">
-          <ScrollReveal>
+      {/* ── Brand Story (pinned, scroll-jacked) ───── */}
+      <PinnedSection
+        scrollDistance="+=80%"
+        className="border-t border-border-subtle bg-bg-elevated"
+      >
+        <section className="px-4 py-24" aria-label="Brand story">
+          <div className="mx-auto max-w-3xl text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent-gold/60">
               Бидний түүх
             </p>
             <h2 className="mt-3 font-display text-3xl font-bold text-text-primary sm:text-4xl">
               28 жилийн туршлагатай
             </h2>
-          </ScrollReveal>
 
-          <ScrollReveal delay={0.15}>
             <p className="mt-6 text-lg leading-relaxed text-text-secondary">
               TOUS les JOURS нь Франц хэлээр &ldquo;Өдөр бүр&rdquo; гэсэн утгатай бөгөөд, шинэхэн
               гурилан бүтээгдэхүүнийг өдөр бүр хэрэглэгчдэд хүргэх зорилготой.
             </p>
-          </ScrollReveal>
-        </div>
+          </div>
 
-        <div className="mx-auto mt-16 grid max-w-4xl gap-8 sm:grid-cols-3">
-          {milestones.map((m, i) => (
-            <ScrollReveal key={m.year} delay={0.1 + i * 0.12}>
-              <div className="rounded-lg border border-border-subtle bg-bg-deep p-6 text-center">
+          <div className="mx-auto mt-16 grid max-w-4xl gap-8 sm:grid-cols-3">
+            {milestones.map((m) => (
+              <div
+                key={m.year}
+                className="rounded-lg border border-border-subtle bg-bg-deep p-6 text-center"
+              >
                 <span className="font-display text-3xl font-bold text-accent-gold">{m.year}</span>
                 <p className="mt-3 text-sm leading-relaxed text-text-secondary">{m.text}</p>
               </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      </PinnedSection>
 
-      {/* ── Features ───────────────────────────────── */}
+      {/* ── Features (normal scroll-reveal, no pin) ── */}
       <section ref={featuresRef} className="px-4 py-24" aria-label="Why TLJ">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal>
@@ -262,14 +272,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3D Showcase ────────────────────────────── */}
-      <section
-        ref={showcaseRef}
-        className="border-t border-border-subtle bg-bg-elevated px-4 py-24"
-        aria-label="3D product showcase"
+      {/* ── 3D Showcase (pinned, scroll-jacked) ───── */}
+      <PinnedSection
+        scrollDistance="+=80%"
+        className="border-t border-border-subtle bg-bg-elevated"
       >
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <ScrollReveal>
+        <section className="px-4 py-24" aria-label="3D product showcase">
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
             <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent-gold/60">
               3D туршлага
             </p>
@@ -279,13 +288,13 @@ export default function Home() {
             <p className="mt-4 max-w-lg text-lg leading-relaxed text-text-secondary">
               Гараараа эргүүлж, өнцөг бүрээс нь хараарай.
             </p>
-          </ScrollReveal>
 
-          <ScrollReveal delay={0.15} className="mt-10 w-full max-w-2xl">
-            <ClientShowcase />
-          </ScrollReveal>
-        </div>
-      </section>
+            <div className="mt-10 w-full max-w-2xl">
+              <ClientShowcase />
+            </div>
+          </div>
+        </section>
+      </PinnedSection>
     </>
   )
 }

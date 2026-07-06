@@ -127,7 +127,7 @@ function ScrollFalcon({ visible }: { visible: boolean }) {
     if (!visible) return
 
     const st = ScrollTrigger.create({
-      trigger: document.body,
+      trigger: document.documentElement,
       start: 'top top',
       end: 'bottom bottom',
       scrub: 0.5,
