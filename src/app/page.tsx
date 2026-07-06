@@ -160,7 +160,7 @@ export default function Home() {
             initial="hidden"
             animate="visible"
             variants={heroTextVariants}
-            className="mt-4 font-display text-5xl font-bold tracking-tight text-text-primary sm:text-6xl lg:text-7xl"
+            className="mt-4 font-display text-4xl font-bold tracking-tight text-text-primary sm:text-6xl lg:text-7xl"
           >
             Өдөр бүр шинэ
           </motion.h1>
@@ -193,23 +193,23 @@ export default function Home() {
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 z-[1] h-32 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 z-[1] h-32 bg-gradient-to-t from-bg-deep to-transparent" />
       </section>
 
       {/* ── Brand Story ────────────────────────────── */}
-      <section ref={brandRef} className="border-t border-muted/40 bg-surface px-4 py-24" aria-label="Brand story">
+      <section ref={brandRef} className="border-t border-border-subtle bg-bg-elevated px-4 py-24" aria-label="Brand story">
         <div className="mx-auto max-w-3xl text-center">
           <ScrollReveal>
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent/60">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent-gold/60">
               Бидний түүх
             </p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-bold text-text-primary sm:text-4xl">
               28 жилийн туршлагатай
             </h2>
           </ScrollReveal>
 
           <ScrollReveal delay={0.15}>
-            <p className="mt-6 text-lg leading-relaxed text-foreground/60">
+            <p className="mt-6 text-lg leading-relaxed text-text-secondary">
               TOUS les JOURS нь Франц хэлээр &ldquo;Өдөр бүр&rdquo; гэсэн утгатай бөгөөд, шинэхэн
               гурилан бүтээгдэхүүнийг өдөр бүр хэрэглэгчдэд хүргэх зорилготой.
             </p>
@@ -219,9 +219,9 @@ export default function Home() {
         <div className="mx-auto mt-16 grid max-w-4xl gap-8 sm:grid-cols-3">
           {milestones.map((m, i) => (
             <ScrollReveal key={m.year} delay={0.1 + i * 0.12}>
-              <div className="rounded-lg border border-muted/40 bg-background p-6 text-center">
-                <span className="font-display text-3xl font-bold text-accent">{m.year}</span>
-                <p className="mt-3 text-sm leading-relaxed text-foreground/60">{m.text}</p>
+              <div className="rounded-lg border border-border-subtle bg-bg-deep p-6 text-center">
+                <span className="font-display text-3xl font-bold text-accent-gold">{m.year}</span>
+                <p className="mt-3 text-sm leading-relaxed text-text-secondary">{m.text}</p>
               </div>
             </ScrollReveal>
           ))}
@@ -232,10 +232,10 @@ export default function Home() {
       <section ref={featuresRef} className="px-4 py-24" aria-label="Why TLJ">
         <div className="mx-auto max-w-5xl">
           <ScrollReveal>
-            <p className="text-center font-mono text-[11px] uppercase tracking-[0.3em] text-accent/60">
+            <p className="text-center font-mono text-[11px] uppercase tracking-[0.3em] text-accent-gold/60">
               Яагаад TLJ
             </p>
-            <h2 className="mt-3 text-center font-display text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 className="mt-3 text-center font-display text-3xl font-bold text-text-primary sm:text-4xl">
               Гурван багана
             </h2>
           </ScrollReveal>
@@ -243,14 +243,14 @@ export default function Home() {
           <div className="mt-14 grid gap-8 sm:grid-cols-3">
             {features.map((f, i) => (
               <ScrollReveal key={f.title} delay={0.1 + i * 0.12}>
-                <article className="group rounded-lg border border-muted/40 bg-surface p-8 transition-colors hover:border-accent/50">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-md bg-accent/10 text-accent transition-colors group-hover:bg-accent/20">
+                <article className="group rounded-lg border border-border-subtle bg-bg-surface p-8 transition-colors hover:border-accent-gold/50">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-md bg-accent-gold/10 text-accent-gold transition-colors group-hover:bg-accent-gold/20">
                     {f.icon}
                   </div>
-                  <h3 className="mt-5 font-display text-xl font-semibold text-foreground">
+                  <h3 className="mt-5 font-display text-xl font-semibold text-text-primary">
                     {f.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-foreground/60">{f.description}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-text-secondary">{f.description}</p>
                 </article>
               </ScrollReveal>
             ))}
@@ -261,18 +261,18 @@ export default function Home() {
       {/* ── 3D Showcase ────────────────────────────── */}
       <section
         ref={showcaseRef}
-        className="border-t border-muted/40 bg-surface px-4 py-24"
+        className="border-t border-border-subtle bg-bg-elevated px-4 py-24"
         aria-label="3D product showcase"
       >
         <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <ScrollReveal>
-            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent/60">
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-accent-gold/60">
               3D туршлага
             </p>
-            <h2 className="mt-3 font-display text-3xl font-bold text-foreground sm:text-4xl">
+            <h2 className="mt-3 font-display text-3xl font-bold text-text-primary sm:text-4xl">
               Бүтээгдэхүүнийг эргүүлж үзээрэй
             </h2>
-            <p className="mt-4 max-w-lg text-lg leading-relaxed text-foreground/60">
+            <p className="mt-4 max-w-lg text-lg leading-relaxed text-text-secondary">
               Гараараа эргүүлж, өнцөг бүрээс нь хараарай.
             </p>
           </ScrollReveal>

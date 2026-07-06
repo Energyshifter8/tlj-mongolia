@@ -19,11 +19,11 @@ const ROWS = [
 ]
 
 const STATUS_COLORS: Record<LetterStatus, string> = {
-  correct: 'bg-correct text-background border-correct',
-  present: 'bg-present text-background border-present',
-  absent: 'bg-absent text-foreground/60 border-absent',
-  empty: 'bg-surface-light text-foreground/80 border-muted hover:bg-muted-light',
-  tbd: 'bg-surface-light text-foreground/80 border-muted',
+  correct: 'bg-correct text-bg-deep border-correct',
+  present: 'bg-present text-bg-deep border-present',
+  absent: 'bg-absent text-text-primary border-absent',
+  empty: 'bg-bg-surface text-text-primary border-border-subtle hover:bg-bg-elevated',
+  tbd: 'bg-bg-surface text-text-primary border-border-subtle',
 }
 
 export default function WordleKeyboard({
@@ -62,7 +62,7 @@ export default function WordleKeyboard({
           type="button"
           onClick={onDelete}
           disabled={disabled}
-          className="flex h-11 w-16 items-center justify-center rounded-md border border-muted bg-surface-light font-mono text-[10px] font-semibold uppercase tracking-widest text-foreground/60 transition-all hover:bg-muted-light disabled:opacity-40"
+          className="flex h-11 w-16 items-center justify-center rounded-md border border-border-subtle bg-bg-surface font-mono text-[10px] font-semibold uppercase tracking-widest text-text-secondary transition-all hover:bg-bg-elevated disabled:opacity-40"
         >
           Del
         </button>
@@ -70,7 +70,7 @@ export default function WordleKeyboard({
           type="button"
           onClick={onSubmit}
           disabled={disabled}
-          className="flex h-11 w-20 items-center justify-center rounded-md border border-accent/50 bg-accent/10 font-mono text-[10px] font-semibold uppercase tracking-widest text-accent transition-all hover:bg-accent/20 disabled:opacity-40"
+          className="flex h-11 w-20 items-center justify-center rounded-md border border-accent-gold/50 bg-accent-gold/10 font-mono text-[10px] font-semibold uppercase tracking-widest text-accent-gold transition-all hover:bg-accent-gold/20 disabled:opacity-40"
         >
           Enter
         </button>

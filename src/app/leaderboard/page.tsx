@@ -115,7 +115,7 @@ export default function LeaderboardPage() {
   const display = merged.slice(0, 20)
 
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12 animate-[fadeIn_300ms_ease-out]">
+    <div className="mx-auto flex w-full max-w-lg min-w-0 flex-col items-center gap-8 px-4 py-12 overflow-x-hidden animate-[fadeIn_300ms_ease-out]">
       {/* heading */}
       <FadeSection className="w-full text-center">
         <h1 className="font-display text-3xl font-bold tracking-wide text-accent-gold">Leaderboard</h1>

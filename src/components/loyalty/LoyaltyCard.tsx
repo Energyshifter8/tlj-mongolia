@@ -30,7 +30,7 @@ export default function LoyaltyCard({ user }: LoyaltyCardProps) {
   const tier = TIERS.find((t) => t.level === user.tier)!
 
   return (
-    <div className="loyalty-card relative w-full max-w-md overflow-hidden rounded-2xl border border-accent/30 bg-surface/80 backdrop-blur-md">
+    <div className="loyalty-card relative w-full max-w-md min-w-0 overflow-hidden rounded-2xl border border-accent-gold/30 bg-bg-elevated backdrop-blur-md">
       {/* scanline overlay */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.03]"
@@ -52,8 +52,8 @@ export default function LoyaltyCard({ user }: LoyaltyCardProps) {
         {/* header */}
         <div className="flex items-start justify-between">
           <div>
-            <h3 className="font-display text-lg font-bold text-accent">TLJ</h3>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/40">
+            <h3 className="font-display text-lg font-bold text-accent-gold">TLJ</h3>
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-text-tertiary">
               Loyalty Card
             </p>
           </div>
@@ -62,22 +62,22 @@ export default function LoyaltyCard({ user }: LoyaltyCardProps) {
 
         {/* user info */}
         <div className="mt-6">
-          <p className="font-display text-xl font-semibold text-foreground">{user.name}</p>
-          <p className="font-mono text-xs text-foreground/50">{user.memberId}</p>
+          <p className="font-display text-xl font-semibold text-text-primary">{user.name}</p>
+          <p className="font-mono text-xs text-text-secondary">{user.memberId}</p>
         </div>
 
         {/* points */}
         <div className="mt-6 flex items-baseline gap-2">
-          <span className="font-display text-4xl font-bold text-accent">
+          <span className="font-display text-4xl font-bold text-accent-gold">
             {user.points.toLocaleString()}
           </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-foreground/40">
+          <span className="font-mono text-xs uppercase tracking-widest text-text-tertiary">
             points
           </span>
         </div>
 
         {/* QR code */}
-        <div className="mt-6 flex justify-center rounded-lg bg-background/60 p-4">
+        <div className="mt-6 flex justify-center rounded-lg bg-bg-deep/60 p-4">
           <QRCodeSVG
             value={`tlj://loyalty/${user.memberId}`}
             size={140}
@@ -88,13 +88,13 @@ export default function LoyaltyCard({ user }: LoyaltyCardProps) {
           />
         </div>
 
-        <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-widest text-foreground/30">
+        <p className="mt-3 text-center font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
           Scan at checkout
         </p>
       </div>
 
       {/* gold accent line */}
-      <div className="h-1 w-full bg-gradient-to-r from-transparent via-accent/60 to-transparent" />
+      <div className="h-1 w-full bg-gradient-to-r from-transparent via-accent-gold/60 to-transparent" />
     </div>
   )
 }

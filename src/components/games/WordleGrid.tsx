@@ -9,11 +9,11 @@ interface WordleGridProps {
 }
 
 const STATUS_STYLES: Record<LetterStatus, string> = {
-  correct: 'border-correct bg-correct text-background',
-  present: 'border-present bg-present text-background',
-  absent: 'border-absent bg-absent text-foreground/80',
-  tbd: 'border-foreground/40 bg-transparent text-foreground',
-  empty: 'border-muted bg-transparent text-foreground',
+  correct: 'border-correct bg-correct text-bg-deep',
+  present: 'border-present bg-present text-bg-deep',
+  absent: 'border-absent bg-absent text-text-primary',
+  tbd: 'border-border-default bg-transparent text-text-primary',
+  empty: 'border-border-subtle bg-transparent text-text-primary',
 }
 
 function TileCell({ tile, colIdx, revealed }: { tile: Tile; colIdx: number; revealed: boolean }) {

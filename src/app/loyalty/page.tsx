@@ -19,7 +19,7 @@ function FadeSection({ children, className = '' }: { children: React.ReactNode; 
 
 export default function LoyaltyPage() {
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col items-center gap-12 px-4 py-16 animate-[fadeIn_300ms_ease-out]">
+    <div className="mx-auto flex w-full max-w-3xl min-w-0 flex-col items-center gap-12 px-4 py-16 overflow-x-hidden animate-[fadeIn_300ms_ease-out]">
       {/* heading */}
       <FadeSection className="w-full text-center">
         <h1 className="font-display text-3xl font-bold tracking-wide text-accent-gold sm:text-4xl">
@@ -46,7 +46,7 @@ export default function LoyaltyPage() {
       </FadeSection>
 
       {/* recent transactions */}
-      <FadeSection className="w-full max-w-md">
+      <FadeSection className="w-full max-w-md min-w-0">
         <h2 className="mb-4 font-mono text-xs uppercase tracking-widest text-text-secondary">
           Recent Activity
         </h2>

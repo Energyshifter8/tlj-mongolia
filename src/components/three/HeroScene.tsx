@@ -125,7 +125,7 @@ function Effects() {
 }
 
 /* ─── Scene with mouse parallax + pause ───────────────── */
-function Scene({ visible }: { visible: boolean }) {
+function Scene({ visible, mouseEnabled }: { visible: boolean; mouseEnabled: boolean }) {
   const groupRef = useRef<Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
 
@@ -138,9 +138,10 @@ function Scene({ visible }: { visible: boolean }) {
   );
 
   useEffect(() => {
+    if (!mouseEnabled) return;
     window.addEventListener("pointermove", handlePointerMove);
     return () => window.removeEventListener("pointermove", handlePointerMove);
-  }, [handlePointerMove]);
+  }, [handlePointerMove, mouseEnabled]);
 
   useFrame(() => {
     if (!groupRef.current || !visible) return;
@@ -184,6 +185,11 @@ interface HeroSceneProps {
 export default function HeroScene({ className = "" }: HeroSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
+  const [hasPointerFine, setHasPointerFine] = useState(true);
+
+  useEffect(() => {
+    setHasPointerFine(window.matchMedia("(pointer: fine)").matches);
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -221,13 +227,13 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
   return (
     <div ref={containerRef} className={className}>
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
         onCreated={handleCreated}
       >
-        <Scene visible={visible} />
+        <Scene visible={visible} mouseEnabled={hasPointerFine} />
       </Canvas>
     </div>
   );
