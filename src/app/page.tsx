@@ -3,6 +3,7 @@
 import { motion, type Variants } from 'framer-motion'
 import Link from 'next/link'
 import ClientShowcase from '@/components/three/ClientShowcase'
+import HeroSceneWrapper from '@/components/three/HeroSceneWrapper'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 
 const heroTextVariants: Variants = {
@@ -89,56 +90,68 @@ export default function Home() {
     <>
       {/* ── Hero ───────────────────────────────────── */}
       <section
-        className="relative flex min-h-[85vh] flex-col items-center justify-center overflow-hidden px-4 text-center"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden"
         aria-label="Hero"
       >
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--accent)_0%,_transparent_60%)] opacity-10" />
+        {/* 3D background */}
+        <div className="absolute inset-0 z-0">
+          <HeroSceneWrapper className="h-full w-full" />
+        </div>
 
-        <motion.p
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          variants={heroTextVariants}
-          className="font-mono text-[11px] uppercase tracking-[0.35em] text-accent/70"
-        >
-          TOUS les JOURS &middot; Mongolia
-        </motion.p>
+        {/* Gradient overlay for text legibility */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-b from-bg-deep/60 via-transparent to-bg-deep/80" />
 
-        <motion.h1
-          custom={1}
-          initial="hidden"
-          animate="visible"
-          variants={heroTextVariants}
-          className="mt-4 font-display text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl"
-        >
-          Өдөр бүр шинэ
-        </motion.h1>
-
-        <motion.p
-          custom={2}
-          initial="hidden"
-          animate="visible"
-          variants={heroTextVariants}
-          className="mt-6 max-w-xl text-lg leading-relaxed text-foreground/60"
-        >
-          Франц-Ази шинэхэн бүтээгдэхүүний мэргэжлийн туршлага — технологи болон ур ухаанаар
-          бүтээгдсэн.
-        </motion.p>
-
-        <motion.div
-          custom={3}
-          initial="hidden"
-          animate="visible"
-          variants={heroTextVariants}
-          className="mt-10"
-        >
-          <Link
-            href="/showcase"
-            className="inline-block rounded-md bg-accent px-8 py-3.5 font-mono text-xs font-semibold uppercase tracking-widest text-background transition-colors hover:bg-accent/80"
+        {/* Text overlay */}
+        <div className="relative z-[2] flex flex-col items-center px-4 text-center">
+          <motion.p
+            custom={0}
+            initial="hidden"
+            animate="visible"
+            variants={heroTextVariants}
+            className="font-mono text-[11px] uppercase tracking-[0.35em] text-accent-gold/70"
           >
-            3D бүтээгдэхүүн үзэх
-          </Link>
-        </motion.div>
+            TOUS les JOURS &middot; Mongolia
+          </motion.p>
+
+          <motion.h1
+            custom={1}
+            initial="hidden"
+            animate="visible"
+            variants={heroTextVariants}
+            className="mt-4 font-display text-5xl font-bold tracking-tight text-text-primary sm:text-6xl lg:text-7xl"
+          >
+            Өдөр бүр шинэ
+          </motion.h1>
+
+          <motion.p
+            custom={2}
+            initial="hidden"
+            animate="visible"
+            variants={heroTextVariants}
+            className="mt-6 max-w-xl text-lg leading-relaxed text-text-secondary"
+          >
+            Франц-Ази шинэхэн бүтээгдэхүүний мэргэжлийн туршлага — технологи болон ур ухаанаар
+            бүтээгдсэн.
+          </motion.p>
+
+          <motion.div
+            custom={3}
+            initial="hidden"
+            animate="visible"
+            variants={heroTextVariants}
+            className="mt-10"
+          >
+            <Link
+              href="/showcase"
+              className="inline-block rounded-md border border-accent-gold/30 bg-accent-gold/10 px-8 py-3.5 font-mono text-xs font-semibold uppercase tracking-widest text-accent-gold backdrop-blur-sm transition-colors hover:bg-accent-gold/20"
+            >
+              3D бүтээгдэхүүн үзэх
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 z-[1] h-32 bg-gradient-to-t from-background to-transparent" />
       </section>
 
       {/* ── Brand Story ────────────────────────────── */}

@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Playfair_Display } from 'next/font/google'
 import Footer from '@/components/layout/Footer'
 import Navbar from '@/components/layout/Navbar'
 import ServiceWorkerRegister from '@/components/layout/ServiceWorkerRegister'
+import SmoothScrollProvider from '@/components/SmoothScrollProvider'
 import { GamesScoreProvider } from '@/contexts/GamesScoreContext'
 import './globals.css'
 
@@ -56,10 +57,12 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <GamesScoreProvider>
-          <ServiceWorkerRegister />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <SmoothScrollProvider>
+            <ServiceWorkerRegister />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </SmoothScrollProvider>
         </GamesScoreProvider>
       </body>
     </html>
