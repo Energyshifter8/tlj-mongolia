@@ -7,6 +7,7 @@ import { EffectComposer, Bloom, ChromaticAberration, Vignette } from "@react-thr
 import { BlendFunction } from "postprocessing";
 import type { Group, Mesh } from "three";
 import * as THREE from "three";
+import type { ThreeEvent } from "@react-three/fiber";
 
 const GOLD = "#c9a24b";
 const GOLD_DIM = "#8a6d30";
@@ -197,6 +198,27 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
     return () => observer.disconnect();
   }, []);
 
+  const handleCreated = useCallback(({ gl }: { gl: THREE.WebGLRenderer }) => {
+    const canvas = gl.domElement;
+
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn("[HeroScene] WebGL context lost — preventing default");
+    };
+
+    const onContextRestored = () => {
+      console.log("[HeroScene] WebGL context restored");
+    };
+
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
+
+    return () => {
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
+    };
+  }, []);
+
   return (
     <div ref={containerRef} className={className}>
       <Canvas
@@ -204,6 +226,7 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
+        onCreated={handleCreated}
       >
         <Scene visible={visible} />
       </Canvas>
