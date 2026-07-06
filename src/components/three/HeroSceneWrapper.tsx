@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
+import HeroScene from "@/components/three/HeroScene";
 import ThreeErrorBoundary from "@/components/three/ThreeErrorBoundary";
 
 function checkWebGL(): boolean {
@@ -13,15 +13,6 @@ function checkWebGL(): boolean {
     return false;
   }
 }
-
-const HeroScene = dynamic(() => import("@/components/three/HeroScene"), {
-  ssr: false,
-  loading: () => (
-    <div className="flex h-full w-full items-center justify-center">
-      <div className="h-16 w-16 animate-pulse rounded-full bg-bg-deep/50" />
-    </div>
-  ),
-});
 
 function HeroFallback({ className }: { className?: string }) {
   return (
@@ -51,9 +42,13 @@ function HeroFallback({ className }: { className?: string }) {
 }
 
 export default function HeroSceneWrapper({ className }: { className?: string }) {
-  const [status] = useState<"ready" | "unavailable">(() =>
-    checkWebGL() ? "ready" : "unavailable",
-  );
+  const [status, setStatus] = useState<"unavailable" | "ready">("unavailable");
+
+  useEffect(() => {
+    if (checkWebGL()) {
+      setStatus("ready");
+    }
+  }, []);
 
   if (status === "unavailable") {
     return <HeroFallback className={className} />;
