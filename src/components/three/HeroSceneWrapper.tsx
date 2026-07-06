@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import ThreeErrorBoundary from "@/components/three/ThreeErrorBoundary";
 
@@ -51,15 +51,11 @@ function HeroFallback({ className }: { className?: string }) {
 }
 
 export default function HeroSceneWrapper({ className }: { className?: string }) {
-  const [webglReady, setWebglReady] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [status] = useState<"ready" | "unavailable">(() =>
+    checkWebGL() ? "ready" : "unavailable",
+  );
 
-  useEffect(() => {
-    setMounted(true);
-    setWebglReady(checkWebGL());
-  }, []);
-
-  if (!mounted || !webglReady) {
+  if (status === "unavailable") {
     return <HeroFallback className={className} />;
   }
 

@@ -1,13 +1,12 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float } from "@react-three/drei";
 import { EffectComposer, Bloom, ChromaticAberration, Vignette } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import type { Group, Mesh } from "three";
 import * as THREE from "three";
-import type { ThreeEvent } from "@react-three/fiber";
 
 const GOLD = "#c9a24b";
 const GOLD_DIM = "#8a6d30";
