@@ -179,11 +179,11 @@ export default function BlockBlastPage() {
   }, [])
 
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
+    <div className="mx-auto flex w-full max-w-lg min-w-0 flex-col items-center gap-8 px-4 py-12 overflow-x-hidden">
       {/* heading */}
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">Block Blast</h1>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent-gold">Block Blast</h1>
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-text-tertiary">
           Place blocks. Clear lines.
         </p>
       </div>
@@ -191,24 +191,24 @@ export default function BlockBlastPage() {
       {/* score */}
       <div className="flex items-center gap-8">
         <div className="text-center">
-          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+          <span className="block font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
             Score
           </span>
-          <span className="font-display text-2xl font-bold text-accent">
+          <span className="font-display text-2xl font-bold text-accent-gold">
             {game.score.toLocaleString()}
           </span>
         </div>
         <div className="text-center">
-          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+          <span className="block font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
             Combo
           </span>
-          <span className="font-display text-2xl font-bold text-foreground/70">×{game.combo}</span>
+          <span className="font-display text-2xl font-bold text-text-secondary">×{game.combo}</span>
         </div>
         <div className="text-center">
-          <span className="block font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+          <span className="block font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
             Best
           </span>
-          <span className="font-display text-2xl font-bold text-foreground/50">
+          <span className="font-display text-2xl font-bold text-text-tertiary">
             {game.highScore.toLocaleString()}
           </span>
         </div>
@@ -238,12 +238,12 @@ export default function BlockBlastPage() {
 
       {/* instructions */}
       {selectedPiece !== null && (
-        <p className="font-mono text-[10px] uppercase tracking-widest text-accent/60">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-accent-gold/60">
           Tap a cell to place
         </p>
       )}
       {selectedPiece === null && game.pieces.some((p) => p !== null) && (
-        <p className="font-mono text-[10px] uppercase tracking-widest text-foreground/30">
+        <p className="font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
           Select a piece below
         </p>
       )}

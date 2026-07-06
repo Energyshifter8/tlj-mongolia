@@ -1,8 +1,10 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Float } from "@react-three/drei";
+import { EffectComposer, Bloom, ChromaticAberration, Vignette } from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 import type { Group, Mesh } from "three";
 import * as THREE from "three";
 
@@ -89,9 +91,7 @@ function Particles({ count = 60 }: { count?: number }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={count}
-          array={positions.current}
-          itemSize={3}
+          args={[positions.current, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.02} color={GOLD} transparent opacity={0.4} sizeAttenuation />
@@ -99,11 +99,35 @@ function Particles({ count = 60 }: { count?: number }) {
   );
 }
 
+/* ─── Postprocessing ──────────────────────────────────── */
+function Effects() {
+  return (
+    <EffectComposer multisampling={0}>
+      <Bloom
+        intensity={0.6}
+        luminanceThreshold={0.2}
+        luminanceSmoothing={0.9}
+        mipmapBlur
+      />
+      <ChromaticAberration
+        offset={new THREE.Vector2(0.0015, 0.0015)}
+        blendFunction={BlendFunction.NORMAL}
+        radialModulation={true}
+        modulationOffset={0.5}
+      />
+      <Vignette
+        offset={0.3}
+        darkness={0.7}
+        blendFunction={BlendFunction.NORMAL}
+      />
+    </EffectComposer>
+  );
+}
+
 /* ─── Scene with mouse parallax + pause ───────────────── */
-function Scene({ visible }: { visible: boolean }) {
+function Scene({ visible, mouseEnabled }: { visible: boolean; mouseEnabled: boolean }) {
   const groupRef = useRef<Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
-  const { viewport } = useThree();
 
   const handlePointerMove = useCallback(
     (e: PointerEvent) => {
@@ -114,9 +138,10 @@ function Scene({ visible }: { visible: boolean }) {
   );
 
   useEffect(() => {
+    if (!mouseEnabled) return;
     window.addEventListener("pointermove", handlePointerMove);
     return () => window.removeEventListener("pointermove", handlePointerMove);
-  }, [handlePointerMove]);
+  }, [handlePointerMove, mouseEnabled]);
 
   useFrame(() => {
     if (!groupRef.current || !visible) return;
@@ -145,6 +170,8 @@ function Scene({ visible }: { visible: boolean }) {
 
       <Particles count={80} />
 
+      <Effects />
+
       <Environment preset="night" />
     </>
   );
@@ -158,6 +185,11 @@ interface HeroSceneProps {
 export default function HeroScene({ className = "" }: HeroSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
+  const [hasPointerFine, setHasPointerFine] = useState(true);
+
+  useEffect(() => {
+    setHasPointerFine(window.matchMedia("(pointer: fine)").matches);
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -171,15 +203,37 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
     return () => observer.disconnect();
   }, []);
 
+  const handleCreated = useCallback(({ gl }: { gl: THREE.WebGLRenderer }) => {
+    const canvas = gl.domElement;
+
+    const onContextLost = (e: Event) => {
+      e.preventDefault();
+      console.warn("[HeroScene] WebGL context lost — preventing default");
+    };
+
+    const onContextRestored = () => {
+      console.log("[HeroScene] WebGL context restored");
+    };
+
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
+
+    return () => {
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
+    };
+  }, []);
+
   return (
     <div ref={containerRef} className={className}>
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
+        onCreated={handleCreated}
       >
-        <Scene visible={visible} />
+        <Scene visible={visible} mouseEnabled={hasPointerFine} />
       </Canvas>
     </div>
   );

@@ -22,7 +22,7 @@ export default function BlockBlastBoard({
     <div className="relative w-full max-w-[360px]">
       {/* grid */}
       <div
-        className="grid gap-[3px] rounded-xl border border-muted/60 bg-surface p-[3px]"
+        className="grid gap-[3px] rounded-xl border border-border-subtle/60 bg-bg-surface p-[3px]"
         style={{ gridTemplateColumns: `repeat(${BOARD_SIZE}, 1fr)` }}
       >
         {board.map((row, r) =>
@@ -41,7 +41,7 @@ export default function BlockBlastBoard({
                     ? 'bg-accent/80 shadow-[inset_0_1px_2px_rgba(0,0,0,0.3)]'
                     : isPreview
                       ? 'ring-1 ring-inset'
-                      : 'bg-background hover:bg-muted/30'
+                      : 'bg-bg-deep hover:bg-border-subtle/30'
                 }`}
                 style={
                   isPreview
@@ -60,7 +60,7 @@ export default function BlockBlastBoard({
       </div>
 
       {/* glow behind grid */}
-      <div className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-accent/5 blur-xl" />
+      <div className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-accent-gold/5 blur-xl" />
     </div>
   )
 }

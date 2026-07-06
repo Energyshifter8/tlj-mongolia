@@ -113,6 +113,19 @@ h6 {
   background: var(--accent);
 }
 
+/* ─── Page transition ─────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ─── Wordle animations ───────────────────────────────────────── */
 
 .wordle-reveal {
@@ -148,5 +161,15 @@ h6 {
   30%,
   70% {
     transform: translateX(4px);
+  }
+}
+
+/* ─── Marquee scroll ─────────────────────────────────────── */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
