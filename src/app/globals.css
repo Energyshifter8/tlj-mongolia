@@ -163,3 +163,13 @@ h6 {
     transform: translateX(4px);
   }
 }
+
+/* ─── Marquee scroll ─────────────────────────────────────── */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
