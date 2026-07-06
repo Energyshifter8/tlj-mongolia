@@ -3,6 +3,8 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Float } from "@react-three/drei";
+import { EffectComposer, Bloom, ChromaticAberration, Vignette } from "@react-three/postprocessing";
+import { BlendFunction } from "postprocessing";
 import type { Group, Mesh } from "three";
 import * as THREE from "three";
 
@@ -89,9 +91,7 @@ function Particles({ count = 60 }: { count?: number }) {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={count}
-          array={positions.current}
-          itemSize={3}
+          args={[positions.current, 3]}
         />
       </bufferGeometry>
       <pointsMaterial size={0.02} color={GOLD} transparent opacity={0.4} sizeAttenuation />
@@ -99,11 +99,35 @@ function Particles({ count = 60 }: { count?: number }) {
   );
 }
 
+/* ─── Postprocessing ──────────────────────────────────── */
+function Effects() {
+  return (
+    <EffectComposer multisampling={0}>
+      <Bloom
+        intensity={0.6}
+        luminanceThreshold={0.2}
+        luminanceSmoothing={0.9}
+        mipmapBlur
+      />
+      <ChromaticAberration
+        offset={new THREE.Vector2(0.0015, 0.0015)}
+        blendFunction={BlendFunction.NORMAL}
+        radialModulation={true}
+        modulationOffset={0.5}
+      />
+      <Vignette
+        offset={0.3}
+        darkness={0.7}
+        blendFunction={BlendFunction.NORMAL}
+      />
+    </EffectComposer>
+  );
+}
+
 /* ─── Scene with mouse parallax + pause ───────────────── */
 function Scene({ visible }: { visible: boolean }) {
   const groupRef = useRef<Group>(null);
   const mouse = useRef({ x: 0, y: 0 });
-  const { viewport } = useThree();
 
   const handlePointerMove = useCallback(
     (e: PointerEvent) => {
@@ -144,6 +168,8 @@ function Scene({ visible }: { visible: boolean }) {
       </Float>
 
       <Particles count={80} />
+
+      <Effects />
 
       <Environment preset="night" />
     </>
