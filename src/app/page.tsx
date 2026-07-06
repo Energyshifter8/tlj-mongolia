@@ -6,6 +6,7 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ClientShowcase from '@/components/three/ClientShowcase'
+import FalconOverlay from '@/components/three/FalconOverlay'
 import HeroSceneWrapper from '@/components/three/HeroSceneWrapper'
 import ScrollReveal from '@/components/ui/ScrollReveal'
 import { useScrollTriggerFade } from '@/hooks/useScrollTriggerFade'
@@ -129,6 +130,9 @@ export default function Home() {
 
   return (
     <>
+      {/* ── Falcon flight overlay ──────────────────── */}
+      <FalconOverlay />
+
       {/* ── Hero ───────────────────────────────────── */}
       <section
         ref={heroRef}

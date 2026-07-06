@@ -186,6 +186,7 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
   const [hasPointerFine, setHasPointerFine] = useState(true);
+  const [sceneKey, setSceneKey] = useState(0);
 
   useEffect(() => {
     setHasPointerFine(window.matchMedia("(pointer: fine)").matches);
@@ -212,7 +213,8 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
     };
 
     const onContextRestored = () => {
-      console.log("[HeroScene] WebGL context restored");
+      console.log("[HeroScene] WebGL context restored — remounting scene");
+      setSceneKey((k) => k + 1);
     };
 
     canvas.addEventListener("webglcontextlost", onContextLost);
@@ -227,6 +229,7 @@ export default function HeroScene({ className = "" }: HeroSceneProps) {
   return (
     <div ref={containerRef} className={className}>
       <Canvas
+        key={sceneKey}
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 5], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
