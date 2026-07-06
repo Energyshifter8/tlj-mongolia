@@ -18,7 +18,6 @@ export function useScrollProgress(): number {
       trigger: document.documentElement,
       start: 'top top',
       end: 'bottom bottom',
-      markers: true,
       onUpdate: (self) => {
         setProgress(Math.round(self.progress * 100))
       },

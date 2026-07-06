@@ -6,7 +6,6 @@ import Link from 'next/link'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ClientShowcase from '@/components/three/ClientShowcase'
-import FalconOverlay from '@/components/three/FalconOverlay'
 import HeroSceneWrapper from '@/components/three/HeroSceneWrapper'
 import PinnedSection from '@/components/ui/PinnedSection'
 import ScrollReveal from '@/components/ui/ScrollReveal'
@@ -137,9 +136,6 @@ export default function Home() {
           {String(scrollProgress).padStart(2, '0')}%
         </span>
       </div>
-
-      {/* ── Falcon flight overlay ──────────────────── */}
-      <FalconOverlay />
 
       {/* ── Hero (unpinned, has its own scroll-out) ── */}
       <section
@@ -295,6 +291,8 @@ export default function Home() {
           </div>
         </section>
       </PinnedSection>
+
+
     </>
   )
 }

@@ -1,10 +1,6 @@
 'use client'
 
 import { useEffect, useRef, type ReactNode } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 interface PinnedSectionProps {
   children: ReactNode
@@ -17,56 +13,47 @@ interface PinnedSectionProps {
 }
 
 /**
- * Pins a section and scrubs an entrance animation on its direct children.
- * On mobile (< 768px) pinning is automatically disabled.
+ * Pins a section with CSS sticky and animates content via IntersectionObserver.
+ * No GSAP DOM manipulation — avoids React removeChild conflicts.
  */
 export default function PinnedSection({
   children,
   className = '',
-  scrollDistance = '+=100%',
+  scrollDistance: _scrollDistance = '+=100%',
   pin = true,
 }: PinnedSectionProps) {
-  const wrapperRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!pin) return
-
-    const wrapper = wrapperRef.current
-    const content = contentRef.current
-    if (!wrapper || !content) return
+    const el = contentRef.current
+    if (!el) return
 
     const mm = window.matchMedia('(min-width: 768px)')
     if (!mm.matches) return
 
-    // set initial state — hidden, slightly below, scaled down
-    gsap.set(content, { opacity: 0, y: 50, scale: 0.97 })
+    // Set initial hidden state via class (no GSAP DOM manipulation)
+    el.classList.add('opacity-0', 'translate-y-12', 'scale-[0.97]')
+    el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out'
 
-    const st = ScrollTrigger.create({
-      trigger: wrapper,
-      pin: true,
-      scrub: 0.6,
-      start: 'top top',
-      end: scrollDistance,
-      markers: true,
-      onUpdate: (self) => {
-        const p = self.progress
-        gsap.set(content, {
-          opacity: Math.min(p * 2, 1),          // fade in over first half
-          y: 50 * (1 - Math.min(p * 2, 1)),     // slide up
-          scale: 0.97 + 0.03 * Math.min(p * 2, 1), // subtle scale-up
-        })
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.remove('opacity-0', 'translate-y-12', 'scale-[0.97]')
+          el.classList.add('opacity-100', 'translate-y-0', 'scale-100')
+        }
       },
-    })
+      { threshold: 0.15 },
+    )
+    observer.observe(el)
 
     return () => {
-      st.kill()
-      gsap.set(content, { clearProps: 'all' })
+      observer.disconnect()
     }
-  }, [pin, scrollDistance])
+  }, [pin])
 
   return (
-    <div ref={wrapperRef} className={className}>
+    <div className={`${pin ? 'sticky top-0' : ''} ${className}`}>
       <div ref={contentRef}>
         {children}
       </div>
