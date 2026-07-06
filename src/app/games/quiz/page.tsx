@@ -82,11 +82,11 @@ export default function QuizPage() {
   }, [])
 
   return (
-    <div className="mx-auto flex w-full max-w-lg flex-col items-center gap-8 px-4 py-12">
+    <div className="mx-auto flex w-full max-w-lg min-w-0 flex-col items-center gap-8 px-4 py-12 overflow-x-hidden">
       {/* heading */}
       <div className="text-center">
-        <h1 className="font-display text-3xl font-bold tracking-wide text-accent">TLJ Quiz</h1>
-        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-foreground/40">
+        <h1 className="font-display text-3xl font-bold tracking-wide text-accent-gold">TLJ Quiz</h1>
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.3em] text-text-tertiary">
           Test your TLJ knowledge
         </p>
       </div>
@@ -98,10 +98,10 @@ export default function QuizPage() {
             key={i}
             className={`h-1.5 rounded-full transition-all ${
               i < state.currentQ
-                ? 'w-6 bg-accent'
+                ? 'w-6 bg-accent-gold'
                 : i === state.currentQ
-                  ? 'w-8 bg-accent'
-                  : 'w-3 bg-muted'
+                  ? 'w-8 bg-accent-gold'
+                  : 'w-3 bg-border-subtle'
             }`}
           />
         ))}
@@ -110,10 +110,10 @@ export default function QuizPage() {
       {/* question */}
       {!state.finished && q && (
         <div className="w-full">
-          <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-foreground/30">
+          <p className="mb-1 font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
             Асуулт {state.currentQ + 1} / {QUIZ_QUESTIONS.length}
           </p>
-          <h2 className="font-display text-xl font-semibold text-foreground">{q.question}</h2>
+          <h2 className="font-display text-xl font-semibold text-text-primary">{q.question}</h2>
 
           {/* options */}
           <div className="mt-6 flex flex-col gap-3">
@@ -133,11 +133,11 @@ export default function QuizPage() {
                       : showResult && isSelected && !isCorrect
                         ? 'border-red-500/60 bg-red-500/10 text-red-400'
                         : answered
-                          ? 'border-muted/30 bg-surface/30 text-foreground/40'
-                          : 'border-muted/50 bg-surface/40 text-foreground/80 hover:border-accent/50 hover:bg-surface-light/40'
+                          ? 'border-border-subtle/30 bg-bg-elevated/30 text-text-tertiary'
+                          : 'border-border-subtle/50 bg-bg-elevated/40 text-text-primary hover:border-accent-gold/50 hover:bg-bg-surface/40'
                   }`}
                 >
-                  <span className="mr-3 font-mono text-[10px] text-foreground/30">
+                  <span className="mr-3 font-mono text-[10px] text-text-tertiary">
                     {String.fromCharCode(65 + i)}.
                   </span>
                   {opt}
@@ -152,7 +152,7 @@ export default function QuizPage() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="rounded-xl border border-accent/50 bg-accent/10 px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-widest text-accent transition-all hover:bg-accent/20"
+                className="rounded-xl border border-accent-gold/50 bg-accent-gold/10 px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-widest text-accent-gold transition-all hover:bg-accent-gold/20"
               >
                 {state.currentQ >= QUIZ_QUESTIONS.length - 1 ? 'Дуусгах' : 'Дараагийн'}
               </button>
@@ -165,24 +165,24 @@ export default function QuizPage() {
       {state.finished && (
         <div className="flex flex-col items-center gap-6">
           <div className="text-center">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
               Таны оноо
             </p>
-            <p className="font-display text-5xl font-bold text-accent">{state.score}</p>
-            <p className="font-mono text-xs text-foreground/40">/ {QUIZ_QUESTIONS.length * 20}</p>
+            <p className="font-display text-5xl font-bold text-accent-gold">{state.score}</p>
+            <p className="font-mono text-xs text-text-tertiary">/ {QUIZ_QUESTIONS.length * 20}</p>
           </div>
 
           <div className="text-center">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-foreground/30">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
               Нийт оноо (бүх тоглоом)
             </p>
-            <p className="font-display text-xl font-bold text-foreground/70">{totalScore}</p>
+            <p className="font-display text-xl font-bold text-text-secondary">{totalScore}</p>
           </div>
 
           <button
             type="button"
             onClick={handleRestart}
-            className="rounded-xl border border-muted px-6 py-2 font-mono text-xs uppercase tracking-widest text-foreground/50 transition-all hover:border-accent hover:text-accent"
+            className="rounded-xl border border-border-subtle px-6 py-2 font-mono text-xs uppercase tracking-widest text-text-tertiary transition-all hover:border-accent-gold hover:text-accent-gold"
           >
             Дахин тоглох
           </button>

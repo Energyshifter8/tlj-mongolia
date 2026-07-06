@@ -158,8 +158,8 @@ export default function SpinWheel({ size = 300, onSpin }: SpinWheelProps) {
         disabled={spinning}
         className={`rounded-xl border px-8 py-3 font-mono text-xs font-semibold uppercase tracking-widest transition-all ${
           spinning
-            ? 'border-muted bg-surface/40 text-foreground/30 cursor-not-allowed'
-            : 'border-accent/50 bg-accent/10 text-accent hover:bg-accent/20'
+            ? 'border-border-subtle bg-bg-elevated/40 text-text-tertiary cursor-not-allowed'
+            : 'border-accent-gold/50 bg-accent-gold/10 text-accent-gold hover:bg-accent-gold/20'
         }`}
       >
         {spinning ? 'Spinning...' : 'Spin the Wheel'}
@@ -167,8 +167,8 @@ export default function SpinWheel({ size = 300, onSpin }: SpinWheelProps) {
 
       {/* result */}
       {result && !spinning && (
-        <div className="rounded-xl border border-accent/30 bg-surface/60 px-6 py-4 text-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-foreground/40">
+        <div className="rounded-xl border border-accent-gold/30 bg-bg-elevated/60 px-6 py-4 text-center">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-text-tertiary">
             You won
           </p>
           <p className="mt-1 font-display text-xl font-bold" style={{ color: result.color }}>

@@ -25,9 +25,9 @@ export default function Navbar({ logo = 'TLJ', links = defaultLinks }: NavbarPro
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-muted/50 bg-background/80 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 border-b border-border-subtle/50 bg-bg-deep/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="font-display text-xl font-bold tracking-wide text-accent">
+        <Link href="/" className="font-display text-xl font-bold tracking-wide text-accent-gold">
           {logo}
         </Link>
 
@@ -37,7 +37,7 @@ export default function Navbar({ logo = 'TLJ', links = defaultLinks }: NavbarPro
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-muted/50 hover:text-accent"
+                className="rounded-md px-3 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-border-subtle/50 hover:text-accent-gold"
               >
                 {link.label}
               </Link>
@@ -48,7 +48,7 @@ export default function Navbar({ logo = 'TLJ', links = defaultLinks }: NavbarPro
         {/* Mobile hamburger */}
         <button
           type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-foreground/70 hover:text-accent md:hidden"
+          className="inline-flex items-center justify-center rounded-md p-2 text-text-secondary hover:text-accent-gold md:hidden"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -80,14 +80,14 @@ export default function Navbar({ logo = 'TLJ', links = defaultLinks }: NavbarPro
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="border-t border-muted/50 bg-surface md:hidden">
+        <div className="border-t border-border-subtle/50 bg-bg-surface md:hidden">
           <ul className="flex flex-col gap-1 px-4 py-3">
             {links.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-muted/50 hover:text-accent"
+                  className="block rounded-md px-3 py-2 text-sm font-medium text-text-secondary transition-colors hover:bg-border-subtle/50 hover:text-accent-gold"
                 >
                   {link.label}
                 </Link>

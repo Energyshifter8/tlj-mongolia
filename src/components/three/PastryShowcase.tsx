@@ -120,8 +120,8 @@ export default function PastryShowcase({ className = '' }: PastryShowcaseProps) 
       <Suspense
         fallback={
           <div className="flex h-full items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-muted border-t-accent" />
-            <span className="ml-3 font-mono text-xs uppercase tracking-widest text-foreground/50">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-border-subtle border-t-accent-gold" />
+            <span className="ml-3 font-mono text-xs uppercase tracking-widest text-text-tertiary">
               Loading 3D...
             </span>
           </div>

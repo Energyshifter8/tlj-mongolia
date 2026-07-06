@@ -62,9 +62,9 @@ export default function BlockBlastPieces({
           return (
             <div
               key={i}
-              className="flex h-20 w-20 items-center justify-center rounded-xl border border-muted/30 bg-surface/40"
+              className="flex h-20 w-20 items-center justify-center rounded-xl border border-border-subtle/30 bg-bg-elevated/40"
             >
-              <span className="font-mono text-[10px] text-foreground/20">used</span>
+              <span className="font-mono text-[10px] text-text-tertiary/20">used</span>
             </div>
           )
         }
@@ -78,8 +78,8 @@ export default function BlockBlastPieces({
             onClick={() => onSelect(i)}
             className={`flex h-20 w-20 items-center justify-center rounded-xl border transition-all ${
               isSelected
-                ? 'border-accent bg-accent/10 shadow-[0_0_12px_rgba(201,162,75,0.2)] scale-105'
-                : 'border-muted/50 bg-surface/60 hover:border-muted hover:bg-surface-light/60'
+                ? 'border-accent-gold bg-accent-gold/10 shadow-[0_0_12px_rgba(201,162,75,0.2)] scale-105'
+                : 'border-border-subtle/50 bg-bg-elevated/60 hover:border-border-subtle hover:bg-bg-surface/60'
             }`}
           >
             <PiecePreview piece={piece} color={piece.color} scale={isSelected ? 1.1 : 1} />

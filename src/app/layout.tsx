@@ -55,7 +55,7 @@ export default function RootLayout({
       <head>
         <link rel="apple-touch-icon" href="/icons/icon-192.png" sizes="192x192" />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col bg-bg-deep text-text-primary">
         <GamesScoreProvider>
           <SmoothScrollProvider>
             <ServiceWorkerRegister />
