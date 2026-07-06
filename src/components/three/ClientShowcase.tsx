@@ -29,14 +29,7 @@ function MarqueeTrack() {
       {MARQUEE_ITEMS.map((item, i) => (
         <div
           key={i}
-          className="group/marquee flex shrink-0 items-center gap-3 rounded-xl border border-border-subtle bg-bg-elevated px-6 py-4 transition-all duration-300 hover:border-accent-gold/40 hover:bg-bg-surface hover:scale-105 hover:grayscale-0 grayscale cursor-default"
-          style={{ filter: 'grayscale(1)' }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.filter = 'grayscale(0)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.filter = 'grayscale(1)'
-          }}
+          className="flex shrink-0 items-center gap-3 rounded-xl border border-border-subtle bg-bg-elevated px-6 py-4 transition-all duration-300 hover:border-accent-gold/40 hover:bg-bg-surface hover:scale-105 grayscale hover:grayscale-0 cursor-default"
         >
           <span className="font-display text-2xl font-bold text-accent-gold">{item.stat}</span>
           <span className="font-mono text-xs uppercase tracking-widest text-text-tertiary">
