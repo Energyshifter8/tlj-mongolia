@@ -195,20 +195,17 @@ interface PastryShowcaseProps {
 
 export default function PastryShowcase({ className = '' }: PastryShowcaseProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(true)
-  const [breathe, setBreathe] = useState(false)
+  const [inView, setInView] = useState(false)
+  const [sceneKey, setSceneKey] = useState(0)
 
-  useEffect(() => {
-    setBreathe(true)
-  }, [])
-
+  /* lazy-mount: only create WebGL context when scrolled near */
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
 
     const observer = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { threshold: 0.1 },
+      ([entry]) => setInView(entry.isIntersecting),
+      { rootMargin: '200px' },
     )
     observer.observe(el)
     return () => observer.disconnect()
@@ -223,7 +220,8 @@ export default function PastryShowcase({ className = '' }: PastryShowcaseProps) 
     }
 
     const onContextRestored = () => {
-      console.log('[PastryShowcase] WebGL context restored')
+      console.log('[PastryShowcase] WebGL context restored — remounting scene')
+      setSceneKey((k) => k + 1)
     }
 
     canvas.addEventListener('webglcontextlost', onContextLost)
@@ -237,26 +235,29 @@ export default function PastryShowcase({ className = '' }: PastryShowcaseProps) 
 
   return (
     <div ref={containerRef} className={`aspect-square w-full max-w-2xl ${className}`} data-showcase-section>
-      <Suspense
-        fallback={
-          <div className="flex h-full items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-2 border-border-subtle border-t-accent-gold" />
-            <span className="ml-3 font-mono text-xs uppercase tracking-widest text-text-tertiary">
-              Loading 3D...
-            </span>
-          </div>
-        }
-      >
-        <Canvas
-          dpr={[1, 1.5]}
-          camera={{ position: [3, 2.5, 3], fov: 40 }}
-          gl={{ antialias: true, alpha: false }}
-          style={{ background: '#0a0908' }}
-          onCreated={handleCreated}
+      {inView && (
+        <Suspense
+          fallback={
+            <div className="flex h-full items-center justify-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-border-subtle border-t-accent-gold" />
+              <span className="ml-3 font-mono text-xs uppercase tracking-widest text-text-tertiary">
+                Loading 3D...
+              </span>
+            </div>
+          }
         >
-          <Scene visible={visible} breathe={breathe} />
-        </Canvas>
-      </Suspense>
+          <Canvas
+            key={sceneKey}
+            dpr={[1, 1.5]}
+            camera={{ position: [3, 2.5, 3], fov: 40 }}
+            gl={{ antialias: true, alpha: false }}
+            style={{ background: '#0a0908' }}
+            onCreated={handleCreated}
+          >
+            <Scene visible={inView} breathe={inView} />
+          </Canvas>
+        </Suspense>
+      )}
     </div>
   )
 }
